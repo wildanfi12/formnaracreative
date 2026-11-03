@@ -728,17 +728,20 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--accent);
 }
 
-.feature-icon-box {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+.feature-badge-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   background: var(--accent-light);
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 1.1rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  margin-top: 2px;
 }
 
 .hero-feature-text h4 {
@@ -816,38 +819,25 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
-.service-card-icon {
-  width: 52px;
-  height: 52px;
-  background: var(--accent-light);
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
+.service-card-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--accent);
-  transition: transform var(--trans-normal);
+  background: var(--accent-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
 }
 
-.service-card:hover .service-card-icon {
-  transform: scale(1.08) rotate(2deg);
-}
-
-.service-card-letter {
+.service-card-num {
   font-family: var(--font-heading);
-  font-size: 0.9rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-tertiary);
-  background: var(--bg-subtle);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .service-card h3 {
@@ -1147,9 +1137,13 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-3px);
 }
 
-.pillar-icon {
-  font-size: 1.75rem;
-  margin-bottom: 1rem;
+.pillar-num {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+  display: block;
 }
 
 .pillar-card h3 {
@@ -1214,17 +1208,16 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: var(--shadow-sm);
 }
 
-.contact-card-icon {
-  width: 44px;
-  height: 44px;
-  background: var(--accent-light);
-  color: var(--accent);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.contact-card-arrow {
+  margin-left: auto;
+  color: var(--text-tertiary);
   font-size: 1.25rem;
-  flex-shrink: 0;
+  transition: transform var(--trans-fast), color var(--trans-fast);
+}
+
+.contact-link-card:hover .contact-card-arrow {
+  transform: translateX(4px);
+  color: var(--accent);
 }
 
 .contact-card-details h4 {

@@ -40,7 +40,6 @@ const SERVICE_CATEGORIES = {
   photo: {
     letter: 'A',
     label: 'Foto Produk & Lifestyle',
-    icon: '📸',
     subcategories: [
       'AI Product Photography',
       'Foto produk e-commerce & marketplace',
@@ -52,7 +51,6 @@ const SERVICE_CATEGORIES = {
   video: {
     letter: 'B',
     label: 'Video & Campaign',
-    icon: '🎬',
     subcategories: [
       'Video komersial & iklan digital',
       'Video showcase produk',
@@ -64,7 +62,6 @@ const SERVICE_CATEGORIES = {
   content: {
     letter: 'C',
     label: 'Konten & Media Sosial',
-    icon: '📱',
     subcategories: [
       'Strategi konten & editorial calendar',
       'Desain feed Instagram & carousels aesthetic',
@@ -76,7 +73,6 @@ const SERVICE_CATEGORIES = {
   brand: {
     letter: 'D',
     label: 'Brand Strategy & Storytelling',
-    icon: '💡',
     subcategories: [
       'Brand positioning & market differentiation',
       'Purpose, visi, & brand narrative story',
@@ -88,7 +84,6 @@ const SERVICE_CATEGORIES = {
   visual: {
     letter: 'E',
     label: 'Identitas Visual & Website',
-    icon: '🎨',
     subcategories: [
       'Pengembangan logo & simbol brand',
       'Sistem identitas visual & brand guidelines',
@@ -100,7 +95,6 @@ const SERVICE_CATEGORIES = {
   marketing: {
     letter: 'F',
     label: 'Digital Marketing & Growth',
-    icon: '📊',
     subcategories: [
       'Strategi Meta Ads (Instagram & Facebook)',
       'TikTok Ads & creator amplification',
@@ -1119,17 +1113,17 @@ function handleDeploymentNotConnected(briefId, payload) {
 
   errorAlert.innerHTML = `
     <div style="font-weight: 700; margin-bottom: 0.5rem; font-size: 1rem;">
-      ℹ️ Spreadsheet Web App Belum Terhubung
+      Informasi: Spreadsheet Web App Belum Terhubung
     </div>
     <p style="margin-bottom: 1rem; color: var(--text-secondary);">
       URL Google Apps Script Web App masih menggunakan placeholder default. Data brief Anda <strong>TETAP AMAN</strong> dan tidak hilang.
     </p>
     <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
       <a href="https://wa.me/${CONFIG.OFFICIAL_WHATSAPP}?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-        💬 Kirim Brief Langsung via WhatsApp (+62 812-8188-6198)
+        Kirim Brief Langsung via WhatsApp (+62 812-8188-6198)
       </a>
       <button type="button" class="btn btn-secondary btn-sm" onclick="showDeploymentHelp()">
-        📋 Lihat Panduan Setup Apps Script
+        Panduan Setup Apps Script
       </button>
     </div>
   `;
@@ -1153,13 +1147,13 @@ function handleSubmissionError(err, briefId, payload) {
 
   errorAlert.innerHTML = `
     <div style="font-weight: 700; margin-bottom: 0.5rem;">
-      ⚠️ Pengiriman Mengalami Kendala Jaringan
+      Pengiriman Mengalami Kendala Jaringan
     </div>
     <p style="margin-bottom: 1rem; color: var(--text-secondary);">
       Koneksi ke server Google Sheets terhambat (${escapeHtml(err.message)}). Anda dapat mencoba kembali atau langsung mengirimkan ringkasan brief ini ke WhatsApp resmi Nara Creative.
     </p>
     <a href="https://wa.me/${CONFIG.OFFICIAL_WHATSAPP}?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-      💬 Kirim via WhatsApp Resmi (+62 812-8188-6198)
+      Kirim via WhatsApp Resmi (+62 812-8188-6198)
     </a>
   `;
   errorAlert.classList.add('show');
