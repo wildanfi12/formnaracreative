@@ -1,86 +1,105 @@
-// Google Apps Script untuk Nara Creative Brief Submission
-// File ini harus dipasang di Google Sheets sebagai Web App
-
 /**
- * CARA SETUP:
- * 1. Buka Google Sheets: https://docs.google.com/spreadsheets/d/1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo/edit
- * 2. Klik Extensions > Apps Script
- * 3. Hapus kode default, salin dan paste SELURUH kode dari file ini
- * 4. Klik ikon Save (disk icon)
- * 5. Klik Deploy > New deployment
- * 6. Pilih type: Web app
- * 7. Isi deskripsi: "Nara Creative Brief Submission"
- * 8. Execute as: Me (your email)
- * 9. Who has access: Anyone
- * 10. Klik Deploy
- * 11. Copy URL deployment yang dihasilkan
- * 12. Buka file script.js di website
- * 13. Ganti 'YOUR_DEPLOYMENT_ID' di baris fetch dengan URL deployment yang Anda copy (GANTI DENGAN URL LENGKAP dari Apps Script, bukan hanya ID)
- * 14. Save file script.js
+ * ============================================================================
+ * GOOGLE APPS SCRIPT — NARA CREATIVE STUDIO BRIEF SUBMISSION
+ * Backend Endpoint untuk Google Sheets Integration
+ * ============================================================================
  * 
- * STRUKTUR SPREADSHEET:
- * Script ini akan membuat tab baru bernama "Client Briefs" jika belum ada.
- * Jika Anda ingin menggunakan tab yang sudah ada, ubah SHEET_NAME di bawah.
+ * PANDUAN DEPLOYMENT:
+ * 1. Buka spreadsheet target:
+ *    https://docs.google.com/spreadsheets/d/1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo/edit
+ * 2. Klik menu: Extensions (Ekstensi) > Apps Script
+ * 3. Hapus kode default, lalu salin dan tempel SELURUH isi file ini.
+ * 4. Klik ikon Save (Ctrl+S).
+ * 5. Klik tombol "Deploy" di kanan atas > pilih "New deployment".
+ * 6. Klik ikon gear (Select type) > pilih "Web app".
+ * 7. Konfigurasi:
+ *    - Description: "Nara Creative Brief Submission API"
+ *    - Execute as: "Me" (email Google Anda)
+ *    - Who has access: "Anyone" (Siapa saja, termasuk anonim)
+ * 8. Klik tombol "Deploy". Berikan izin (Authorize access) jika diminta.
+ * 9. Salin "Web app URL" yang muncul (berakhiran /exec).
+ * 10. Buka file app.js di website, lalu perbarui CONFIG.APPS_SCRIPT_URL dengan URL tersebut.
+ * 
+ * KEAMANAN & INTEGRITAS DATA:
+ * - Tidak ada kredensial/token rahasia yang disimpan di frontend.
+ * - Append-Only: Menggunakan sheet.appendRow(), sehingga setiap brief baru
+ *   menjadi baris baru di bawah tanpa pernah menimpa atau menghapus data lama.
+ * - Tab otomatis: Tab "Client Briefs" akan dibuat otomatis jika belum ada.
  */
 
-// KONFIGURASI
-const SHEET_NAME = 'Client Briefs'; // Nama tab/sheet untuk menyimpan brief
-const SPREADSHEET_ID = '1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo'; // ID spreadsheet Anda
+// KONFIGURASI SPREADSHEET
+const SPREADSHEET_ID = '1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo';
+const SHEET_NAME = 'Client Briefs';
+const NOTIFICATION_EMAIL = 'naracreativestudio.id@gmail.com'; // Email resmi Nara Creative
 
 /**
- * Fungsi utama untuk menerima POST request dari website
+ * Endpoint POST: Menerima payload brief dari website
  */
 function doPost(e) {
   try {
-    // Parse data dari request
-    const data = JSON.parse(e.postData.contents);
-    
-    // Validasi data wajib
-    if (!data.fullName || !data.email || !data.whatsapp || !data.brandName) {
-      return ContentService.createTextOutput(JSON.stringify({
-        success: false,
-        message: 'Data wajib tidak lengkap'
-      })).setMimeType(ContentService.MimeType.JSON);
+    if (!e || !e.postData || !e.postData.contents) {
+      return createJsonResponse(false, 'Payload tidak ditemukan atau format tidak sesuai.');
     }
-    
-    // Simpan ke spreadsheet
-    const result = saveBriefToSheet(data);
-    
+
+    const data = JSON.parse(e.postData.contents);
+
+    // Validasi data wajib minimal
+    if (!data.fullName || !data.email || !data.whatsapp || !data.brandName) {
+      return createJsonResponse(false, 'Data wajib belum lengkap (Nama, Email, WhatsApp, dan Nama Brand wajib diisi).');
+    }
+
+    // Simpan ke Google Sheets
+    const saveResult = saveBriefToSheet(data);
+
+    if (!saveResult.success) {
+      return createJsonResponse(false, saveResult.message || 'Gagal menyimpan ke spreadsheet.');
+    }
+
     // Kirim response sukses
-    return ContentService.createTextOutput(JSON.stringify({
-      success: true,
-      message: 'Brief berhasil disimpan',
-      briefId: data.briefId
-    })).setMimeType(ContentService.MimeType.JSON);
-    
+    return createJsonResponse(true, 'Brief berhasil diterima dan disimpan.', {
+      briefId: data.briefId || '',
+      timestamp: new Date().toISOString()
+    });
+
   } catch (error) {
-    Logger.log('Error: ' + error.toString());
-    return ContentService.createTextOutput(JSON.stringify({
-      success: false,
-      message: 'Terjadi kesalahan: ' + error.toString()
-    })).setMimeType(ContentService.MimeType.JSON);
+    Logger.log('Error doPost: ' + error.toString());
+    return createJsonResponse(false, 'Terjadi kesalahan server: ' + error.toString());
   }
 }
 
 /**
- * Fungsi untuk testing (opsional)
- * Bisa dijalankan dari Apps Script editor untuk mengetes
+ * Endpoint GET: Pemeriksaan status API
  */
 function doGet(e) {
-  return ContentService.createTextOutput('Nara Creative Brief Submission API is running. Use POST to submit data.');
+  return ContentService.createTextOutput(JSON.stringify({
+    status: 'online',
+    service: 'Nara Creative Studio Brief Submission API',
+    spreadsheetId: SPREADSHEET_ID,
+    sheetName: SHEET_NAME,
+    timestamp: new Date().toISOString()
+  })).setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
- * Simpan data brief ke spreadsheet
+ * Menyimpan data brief ke tab spreadsheet target (Append-Only)
  */
 function saveBriefToSheet(data) {
-  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  let sheet = ss.getSheetByName(SHEET_NAME);
-  
-  // Buat sheet baru jika belum ada
-  if (!sheet) {
-    sheet = ss.insertSheet(SHEET_NAME);
-    // Buat header
+  try {
+    let ss;
+    try {
+      // Prioritaskan active spreadsheet jika bound script
+      ss = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(SPREADSHEET_ID);
+    } catch (err) {
+      ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    }
+
+    if (!ss) {
+      return { success: false, message: 'Spreadsheet tidak dapat dibuka.' };
+    }
+
+    let sheet = ss.getSheetByName(SHEET_NAME);
+
+    // 27 Kolom Header Resmi
     const headers = [
       'Timestamp',
       'Brief ID',
@@ -110,127 +129,103 @@ function saveBriefToSheet(data) {
       'Catatan Tambahan',
       'Persetujuan Kontak'
     ];
-    sheet.appendRow(headers);
-    
-    // Format header
-    const headerRange = sheet.getRange(1, 1, 1, headers.length);
-    headerRange.setFontWeight('bold');
-    headerRange.setBackground('#D4915D');
-    headerRange.setFontColor('#FFFFFF');
-    sheet.setFrozenRows(1);
+
+    // Jika tab "Client Briefs" belum ada, buat tab baru dan pasang header
+    if (!sheet) {
+      sheet = ss.insertSheet(SHEET_NAME);
+      sheet.appendRow(headers);
+
+      // Format header agar rapi dan elegan
+      const headerRange = sheet.getRange(1, 1, 1, headers.length);
+      headerRange.setFontWeight('bold');
+      headerRange.setBackground('#B85D2A'); // Warna terracotta Nara Creative
+      headerRange.setFontColor('#FFFFFF');
+      headerRange.setFontFamily('Arial');
+      headerRange.setHorizontalAlignment('center');
+      sheet.setFrozenRows(1);
+    }
+
+    // Persiapkan baris data baru
+    const timestamp = new Date(data.timestamp || new Date());
+    const serviceOtherText = data.serviceOther && typeof data.serviceOther === 'object'
+      ? Object.entries(data.serviceOther).map(function(pair) { return pair[0] + ': ' + pair[1]; }).join('; ')
+      : (data.serviceOther || '');
+
+    const rowData = [
+      timestamp,
+      data.briefId || '',
+      data.status || 'Baru',
+      data.fullName || '',
+      data.email || '',
+      data.whatsapp || '',
+      data.role || '',
+      data.preferredContact || '',
+      data.brandName || '',
+      data.businessField || '',
+      data.websiteSocial || '',
+      data.brandDescription || '',
+      data.hasVisualIdentity || '',
+      data.serviceCategory || '',
+      data.serviceSubcategories || '',
+      serviceOtherText,
+      data.projectGoal || '',
+      data.targetAudience || '',
+      data.challenges || '',
+      data.expectedResults || '',
+      data.references || '',
+      data.projectStart || '',
+      data.deadline || '',
+      data.budget || '',
+      data.existingAssets || '',
+      data.additionalNotes || '',
+      data.contactConsent ? 'Ya' : 'Tidak'
+    ];
+
+    // Tambahkan data ke baris paling baru (Append)
+    sheet.appendRow(rowData);
+
+    // Auto-fit kolom jika baru baris pertama
+    if (sheet.getLastRow() === 2) {
+      sheet.autoResizeColumns(1, headers.length);
+    }
+
+    return { success: true };
+  } catch (err) {
+    Logger.log('Error saveBriefToSheet: ' + err.toString());
+    return { success: false, message: err.toString() };
   }
-  
-  // Siapkan data untuk baris baru
-  const timestamp = new Date(data.timestamp || new Date());
-  const serviceOtherText = data.serviceOther && typeof data.serviceOther === 'object' 
-    ? Object.values(data.serviceOther).join('; ') 
-    : (data.serviceOther || '');
-  
-  const rowData = [
-    timestamp,
-    data.briefId || '',
-    data.status || 'Baru',
-    data.fullName || '',
-    data.email || '',
-    data.whatsapp || '',
-    data.role || '',
-    data.preferredContact || '',
-    data.brandName || '',
-    data.businessField || '',
-    data.websiteSocial || '',
-    data.brandDescription || '',
-    data.hasVisualIdentity || '',
-    data.serviceCategory || '',
-    data.serviceSubcategories || '',
-    serviceOtherText,
-    data.projectGoal || '',
-    data.targetAudience || '',
-    data.challenges || '',
-    data.expectedResults || '',
-    data.references || '',
-    data.projectStart || '',
-    data.deadline || '',
-    data.budget || '',
-    data.existingAssets || '',
-    data.additionalNotes || '',
-    data.contactConsent ? 'Ya' : 'Tidak'
-  ];
-  
-  // Tambahkan baris baru
-  sheet.appendRow(rowData);
-  
-  // Auto-resize kolom untuk data pertama
-  if (sheet.getLastRow() === 2) {
-    sheet.autoResizeColumns(1, rowData.length);
-  }
-  
-  // Optional: Kirim email notifikasi ke tim Nara
-  // sendEmailNotification(data);
-  
-  return true;
 }
 
 /**
- * OPSIONAL: Kirim email notifikasi ke tim Nara setiap ada brief baru
- * Uncomment fungsi ini jika Anda ingin menerima notifikasi email
+ * Helper untuk response JSON dengan format standar
  */
-/*
-function sendEmailNotification(data) {
-  const recipient = 'your-email@example.com'; // Ganti dengan email tim Nara
-  const subject = `Brief Baru dari ${data.brandName} - ${data.briefId}`;
-  const body = `
-Brief baru telah diterima:
+function createJsonResponse(success, message, extra) {
+  const payload = Object.assign({
+    success: success,
+    message: message
+  }, extra || {});
 
-KONTAK:
-Nama: ${data.fullName}
-Email: ${data.email}
-WhatsApp: ${data.whatsapp}
-
-BRAND:
-Nama Brand: ${data.brandName}
-Bidang: ${data.businessField}
-
-LAYANAN:
-${data.serviceCategory}
-${data.serviceSubcategories}
-
-TUJUAN:
-${data.projectGoal}
-
-Waktu Mulai: ${data.projectStart}
-Anggaran: ${data.budget}
-
-Lihat detail lengkap di spreadsheet:
-https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}
-  `;
-  
-  try {
-    MailApp.sendEmail(recipient, subject, body);
-  } catch (error) {
-    Logger.log('Error sending email: ' + error.toString());
-  }
+  return ContentService.createTextOutput(JSON.stringify(payload))
+    .setMimeType(ContentService.MimeType.JSON);
 }
-*/
 
 /**
- * Fungsi testing untuk memastikan koneksi spreadsheet bekerja
- * Jalankan fungsi ini dari Apps Script editor untuk mengetes
+ * Fungsi uji koneksi internal
+ * Bisa dijalankan langsung dari editor Apps Script untuk verifikasi izin
  */
-function testConnection() {
+function testSpreadsheetConnection() {
   try {
     const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-    Logger.log('Successfully connected to spreadsheet: ' + ss.getName());
-    
+    Logger.log('Koneksi berhasil ke spreadsheet: ' + ss.getName());
     let sheet = ss.getSheetByName(SHEET_NAME);
-    if (!sheet) {
-      Logger.log('Sheet "' + SHEET_NAME + '" not found. It will be created on first submission.');
+    if (sheet) {
+      Logger.log('Tab "' + SHEET_NAME + '" ditemukan. Jumlah baris: ' + sheet.getLastRow());
     } else {
-      Logger.log('Sheet "' + SHEET_NAME + '" exists with ' + sheet.getLastRow() + ' rows');
+      Logger.log('Tab "' + SHEET_NAME + '" belum ada (akan dibuat otomatis saat brief pertama masuk).');
     }
-    
     return true;
-  } catch (error) {
-    Logger.log('Error: ' + error.toString());
+  } catch (err) {
+    Logger.log('Gagal menghubungkan: ' + err.toString());
     return false;
   }
 }

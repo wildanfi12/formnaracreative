@@ -1,253 +1,187 @@
-# Nara Creative Website - Panduan Setup dan Integrasi
+# Nara Creative Studio — Website Resmi & Sistem Brief Proyek
 
-## 📋 Ringkasan
-
-Website Nara Creative yang telah dibuat terdiri dari:
-- **index.html**: Halaman utama dengan hero, layanan, cara kerja, dan form multi-step
-- **styles.css**: Styling responsif, aksesibel, dan modern
-- **script.js**: Logika form, validasi, dan penyimpanan lokal
-- **apps-script-backend.gs**: Backend Google Apps Script untuk integrasi Google Sheets
-
-## 🎯 File yang Dibuat
-
-```
-C:\Users\USER\Documents\Default Project\
-├── index.html                 # Halaman website utama
-├── styles.css                # Styling CSS
-├── script.js                 # JavaScript untuk form dan logika
-└── apps-script-backend.gs    # Google Apps Script (bukan untuk direktori ini)
-```
-
-## 🚀 Cara Menjalankan Website
-
-### Opsi 1: Buka langsung di browser (Paling Mudah)
-1. Buka folder `C:\Users\USER\Documents\Default Project\`
-2. Double-click file `index.html`
-3. Browser akan membuka website
-
-### Opsi 2: Gunakan Local Server (Lebih Aman untuk Testing)
-Buka PowerShell/Command Prompt di folder project dan jalankan:
-
-```powershell
-# Python 3
-python -m http.server 8000
-
-# atau jika Python 2
-python -m SimpleHTTPServer 8000
-
-# atau jika sudah install Live Server di VS Code
-code . # Buka di VS Code, install extension "Live Server", klik Go Live
-```
-
-Kemudian buka: `http://localhost:8000`
-
-## 🔌 Setup Integrasi Google Sheets
-
-### LANGKAH 1: Persiapkan Google Sheets
-
-1. Buka spreadsheet di link ini:
-   https://docs.google.com/spreadsheets/d/1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo/edit
-
-2. Pastikan Anda sudah login dengan akun Google yang tepat
-
-### LANGKAH 2: Buat Google Apps Script
-
-1. Di spreadsheet, klik **Extensions** → **Apps Script**
-   
-2. Jika sudah ada kode di editor, hapus semuanya
-
-3. Copy seluruh kode dari file `apps-script-backend.gs` (dari project ini) dan paste ke editor Apps Script
-
-4. Di baris awal, verifikasi:
-   ```javascript
-   const SHEET_NAME = 'Client Briefs'; // Nama tab untuk briefs
-   const SPREADSHEET_ID = '1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo';
-   ```
-   Pastikan SPREADSHEET_ID sudah benar
-
-5. **Simpan** kode (Ctrl+S)
-
-### LANGKAH 3: Deploy sebagai Web App
-
-1. Di Apps Script editor, klik **Deploy** → **New deployment**
-
-2. Di popup yang muncul:
-   - Pilih **Type**: Web app
-   - **Execute as**: [Akun Google Anda]
-   - **Who has access**: Anyone
-   - **Description**: Nara Creative Brief Submission
-
-3. Klik **Deploy**
-
-4. Google akan meminta izin akses. Klik **Grant access** dan ikuti proses login
-
-5. Setelah deploy berhasil, Anda akan melihat URL seperti:
-   ```
-   https://script.google.com/macros/s/[DEPLOYMENT_ID]/usercontent
-   ```
-
-6. **Copy URL deployment ini** (seluruh URL)
-
-### LANGKAH 4: Update Website dengan URL Deployment
-
-1. Buka file `script.js` dari project Anda
-
-2. Cari baris yang berisi:
-   ```javascript
-   const response = await fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/usercontent', {
-   ```
-
-3. Ganti `https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/usercontent` dengan URL deployment yang Anda copy di langkah 3
-
-4. **Simpan** file `script.js`
-
-### LANGKAH 5: Test Integrasi
-
-1. Buka website di browser (dengan live server atau buka index.html langsung)
-
-2. Isi form brief secara lengkap dan klik "Kirim Brief"
-
-3. Jika berhasil:
-   - Akan muncul pesan "Terima kasih sudah menceritakan proyekmu"
-   - Data akan muncul di Google Sheets di tab "Client Briefs"
-
-4. Jika gagal:
-   - Periksa console browser (F12 → Console) untuk error message
-   - Verifikasi URL deployment Apps Script sudah benar
-   - Pastikan Apps Script sudah di-deploy dengan akses "Anyone"
-
-## 📊 Struktur Data di Google Sheets
-
-Setiap brief yang dikirim akan membuat satu baris baru dengan kolom berikut:
-
-| Kolom | Deskripsi |
-|-------|-----------|
-| Timestamp | Waktu pengiriman brief |
-| Brief ID | ID unik untuk setiap brief |
-| Status | Status awal (default: "Baru") |
-| Nama Lengkap | Nama person of contact |
-| Email | Email kontak |
-| WhatsApp | Nomor WhatsApp |
-| Jabatan/Peran | Jabatan di perusahaan |
-| Preferensi Kontak | WhatsApp atau Email |
-| Nama Brand | Nama bisnis/brand |
-| Bidang Bisnis | Industri/sektor |
-| Website/Media Sosial | Link ke website atau sosial media |
-| Deskripsi Brand | Deskripsi singkat tentang bisnis |
-| Status Logo/Panduan Visual | Sudah/Belum/Tidak Yakin |
-| Kategori Layanan | Layanan yang dipilih |
-| Detail Layanan | Sublayanan spesifik |
-| Layanan Lainnya | Kebutuhan custom lainnya |
-| Tujuan Proyek | Tujuan utama proyek |
-| Target Audiens | Siapa target audiens |
-| Tantangan | Tantangan yang dihadapi |
-| Hasil yang Diharapkan | Expected outcome |
-| Referensi | Contoh/referensi yang disukai |
-| Waktu Mulai | Kapan proyek dimulai |
-| Tenggat Waktu | Deadline proyek |
-| Anggaran | Kisaran budget |
-| Aset yang Tersedia | Aset yang sudah ada |
-| Catatan Tambahan | Notes tambahan |
-| Persetujuan Kontak | Ya/Tidak persetujuan kontak |
-
-## 🔒 Keamanan dan Best Practices
-
-### Catatan Keamanan:
-- **Jangan** simpan API key atau token di file frontend
-- URL Apps Script deployment **tidak rahasia** - bersifat publik untuk menerima request dari website
-- Google Apps Script memiliki rate limiting (default 6 requests per menit per user)
-- Data disimpan di Google Sheets yang aman dengan akses Google
-
-### Rekomendasi Tambahan:
-1. **Enable CORS di Apps Script** (sudah default untuk Web App deployment)
-2. **Validasi data** dilakukan di kedua sisi (frontend dan backend)
-3. **Backup data** - Google Sheets otomatis backup di Google Drive
-4. **Notifikasi Email** - Anda bisa uncomment bagian `sendEmailNotification()` di Apps Script untuk mendapat notifikasi setiap ada brief baru
-
-## 📱 Fitur Website
-
-### ✅ Fitur yang Sudah Diimplementasi:
-- Multi-step form (5 langkah) dengan progress indicator
-- Checkbox dinamis untuk kategori dan sublayanan
-- Validasi form yang ramah pengguna
-- Auto-save form data ke localStorage (jika user keluar, data tetap tersimpan)
-- Ringkasan (summary) sebelum submit
-- Pesan sukses setelah submit berhasil
-- Responsive design untuk mobile, tablet, desktop
-- Aksesibilitas: semantic HTML, ARIA labels, keyboard navigation
-- Light animations dengan respek untuk prefers-reduced-motion
-
-### 🎨 Desain:
-- Warna: Off-white (#FAF7F5), teks gelap (#2C2520), aksen warm (#D4915D)
-- Typography: Modern, clean, mudah dibaca
-- Spacing: Generous whitespace untuk elegance
-- Brand voice: Hangat, profesional, mengundang
-
-## 🔄 Workflow Calon Klien
-
-1. Calon klien buka website → Lihat layanan Nara
-2. Klik "Mulai Brief" atau pilih layanan spesifik
-3. Isi form 5 langkah dengan detail kebutuhan
-4. Review ringkasan → Klik "Kirim Brief"
-5. Menerima konfirmasi, data masuk ke Google Sheets
-6. Tim Nara review dan hubungi calon klien melalui kontak yang diberikan
-
-## 📝 Notes untuk Team Nara
-
-- Setiap brief baru masuk ke tab "Client Briefs" di spreadsheet
-- Status awal: "Baru" - bisa diupdate saat tim sudah review
-- Brief ID unik untuk tracking
-- Timestamp otomatis untuk audit trail
-- Preferensi kontak mempermudah follow-up (WhatsApp atau Email)
-
-## ⚠️ Troubleshooting
-
-### Tombol "Kirim Brief" tidak bekerja / Error 404
-**Solusi:**
-- Pastikan URL deployment Apps Script sudah benar di script.js
-- Pastikan Apps Script sudah di-deploy dengan akses "Anyone"
-- Check console browser (F12) untuk error message
-
-### Form data hilang saat refresh
-**Solusi:**
-- Ini normal - data akan tersimpan jika Anda refresh di tengah pengisian
-- Data disimpan di localStorage browser Anda
-
-### Google Sheets tidak menerima data
-**Solusi:**
-- Di Apps Script, buka Apps Script editor
-- Klik tab "Executions" untuk lihat log eksekusi
-- Cek error message di log
-- Verifikasi permissions sudah granted
-
-### Kolom spreadsheet tidak lengkap atau berbeda
-**Solusi:**
-- Jika sudah ada data di spreadsheet, script akan menambah baris tanpa membuat header baru
-- Header otomatis dibuat hanya jika tab "Client Briefs" tidak ada
-- Jika perlu reset, bisa hapus tab "Client Briefs" dan submit brief baru
-
-## 🚀 Next Steps untuk Deploy Live
-
-1. **Domain**: Pasang website ke domain Anda (misal: naracreative.com)
-   - Bisa gunakan Vercel, Netlify, GitHub Pages (gratis)
-   - Atau hosting biasa (Niagahoster, Cloudways, dll)
-
-2. **Email Notifikasi**: Uncomment fungsi `sendEmailNotification()` di Apps Script jika ingin notifikasi email
-
-3. **Analytics**: Tambahkan Google Analytics untuk tracking visitor
-
-4. **SEO**: Optimasi meta tags, schema markup untuk SEO
-
-5. **CMS Optional**: Jika perlu update konten tanpa edit kode, bisa tambahkan sistem CMS sederhana
-
-## 📞 Support
-
-Jika ada pertanyaan tentang:
-- Integrasi Google Sheets → Check section "Setup Integrasi Google Sheets" di atas
-- Styling/CSS → Edit colors di root variables di `styles.css`
-- Form fields → Edit di `index.html` (jangan lupa update validasi di `script.js`)
-- Text/Copy → Edit langsung di `index.html` dalam tag yang sesuai
+Website modern, interaktif, dan premium untuk agensi kreatif **Nara Creative Studio**. Dibangun dengan estetika visual netral hangat (*warm neutral/quiet luxury*), navigasi yang aksesibel, formulir brief interaktif 5 langkah, serta integrasi aman ke Google Sheets melalui backend Google Apps Script.
 
 ---
 
-**Website Nara Creative sudah siap digunakan! 🎉**
+## 📌 Ringkasan Proyek
+
+- **Nama Brand**: Nara Creative Studio
+- **Domain/Fokus**: Studio Kreatif & Strategi Visual (Foto Produk, Video Campaign, Konten Sosial Media, Brand Strategy, Identitas Visual & Website, Digital Marketing)
+- **Kontak Resmi**:
+  - ✉️ Email: `naracreativestudio.id@gmail.com`
+  - 💬 WhatsApp: `+62 812-8188-6198` ([wa.me/6281281886198](https://wa.me/6281281886198))
+  - 📸 Instagram: `@naracreativestudio` ([instagram.com/naracreativestudio](https://instagram.com/naracreativestudio))
+- **Spreadsheet Target**:
+  `https://docs.google.com/spreadsheets/d/1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo/edit?usp=sharing`
+
+---
+
+## 🎨 Karakteristik Desain & Visual
+
+1. **Palet Warna Netral Hangat (*Warm Neutral*)**:
+   - Background Utama: `#faf8f5` (warm off-white)
+   - Background Sekunder / Cards: `#ffffff` & `#f6f3ed`
+   - Tipografi / Kontras Teks: `#191816` (charcoal gelap yang sangat mudah dibaca)
+   - Satu Warna Aksen: `#b85d2a` (terracotta / copper amber khas Nara)
+2. **Tipografi Modern**: Kombinasi font Google *Outfit* (headings berkarakter) & *Plus Jakarta Sans* (body text dengan legibilitas prima).
+3. **Aksesibilitas (WCAG AA Compliant)**:
+   - Skip-to-content link untuk navigasi pembaca layar.
+   - Kontras warna teks dan tombol teruji.
+   - Label formulir eksplisit pada seluruh input.
+   - Fokus keyboard jelas (`:focus-visible`).
+   - Dukungan `prefers-reduced-motion` untuk kenyamanan pengguna sensitif animasi.
+4. **Keaslian Konten (Zero Fake Metrics)**:
+   - Tidak mencantumkan klaim fiktif seperti jumlah klien tidak terverifikasi atau persentase ROI yang mengada-ada.
+   - Menampilkan pilar nilai autentik Nara Creative dan studi kasus riil (Belayang Food Bali, Howell Lifestyle, Kalceri Cafe).
+
+---
+
+## 🛠️ Struktur File Proyek
+
+```
+formnaracreative/
+├── index.html                 # Struktur utama halaman web semantik & aksesibel
+├── styles.css                 # Stylesheet lengkap tema netral hangat & responsif
+├── app.js                     # Logika utama: 5-step wizard, validasi, Apps Script handler
+├── script.js                  # Jembatan kompatibilitas ke app.js
+├── apps-script-backend.gs     # Backend Google Apps Script (Append-Only)
+├── TEST-DEPLOYMENT.js         # Skrip utility pengujian koneksi Web App
+├── assets/                    # Logo resmi Nara Creative & aset karya
+│   ├── nara-logo-dark.png
+│   ├── nara-logo-cream.png
+│   ├── nara-logo-white-bg.png
+│   └── portfolio/
+├── README.md                  # Dokumentasi utama proyek ini
+└── APPS-SCRIPT-SETUP.md       # Panduan langkah demi langkah setup Apps Script
+```
+
+---
+
+## 📋 Struktur Formulir Brief 5 Langkah
+
+Formulir brief dirancang terstruktur dan mempertahankan jawaban pengguna (`localStorage` + state in-memory):
+
+1. **Langkah 1: Kebutuhan Layanan**
+   - 6 Kategori Layanan Wajib (A s/d F):
+     - **A. Foto Produk & Lifestyle**
+     - **B. Video & Campaign**
+     - **C. Konten & Media Sosial**
+     - **D. Brand Strategy & Storytelling**
+     - **E. Identitas Visual & Website**
+     - **F. Digital Marketing & Growth**
+   - Subkategori interaktif otomatis muncul saat kategori dipilih.
+   - Input teks bebas *"Kebutuhan Lainnya..."* per kategori.
+2. **Langkah 2: Tentang Brand**
+   - Nama Brand *(wajib)*
+   - Bidang Bisnis / Industri *(wajib)*
+   - Website / Media Sosial Aktif *(opsional)*
+   - Deskripsi Singkat Brand & Produk *(wajib)*
+   - Status Identitas Visual & Logo *(wajib)*
+3. **Langkah 3: Tujuan Proyek**
+   - Tujuan Utama Proyek *(wajib)*
+   - Target Audiens Konsumen
+   - Tantangan yang Dihadapi
+   - Hasil yang Diharapkan
+   - Referensi Gaya / Benchmark URL
+4. **Langkah 4: Rencana Proyek**
+   - Perkiraan Waktu Mulai *(wajib: Segera / Bulan Depan / Fleksibel)*
+   - Target Tenggat Waktu / Deadline
+   - Kisaran Estimasi Anggaran (Budget)
+   - Aset yang Sudah Siap Pakai
+   - Catatan Tambahan Khusus
+5. **Langkah 5: Informasi Kontak**
+   - Nama Lengkap *(wajib)*
+   - Jabatan / Peran di Brand
+   - Alamat Email Aktif *(wajib, validasi format)*
+   - Nomor WhatsApp Aktif *(wajib)*
+   - Preferensi Jalur Komunikasi
+   - Persetujuan Kontak *(wajib dicentang)*
+6. **Langkah Ringkasan (Review & Edit)**:
+   - Menampilkan pratinjau kartu ringkasan dari semua input.
+   - Tombol **"Ubah"** di tiap seksi untuk kembali ke langkah tertentu tanpa menghapus data lain.
+7. **Pesan Sukses**:
+   - Menampilkan **Brief ID** unik (contoh: `NARA-20261103-A8X9`).
+   - Tombol salin Brief ID.
+   - Tombol konfirmasi langsung via WhatsApp dengan pesan otomatis terisi.
+
+---
+
+## 🔌 Integrasi Google Sheets
+
+### Metode: Google Apps Script Web App (POST Endpoint)
+- **Keamanan**: Tidak memerlukan Google API Key, OAuth Client ID, atau kredensial JSON di frontend. Frontend mengirimkan payload JSON bersih ke Web App URL.
+- **Append-Only**: Menggunakan metode `sheet.appendRow(rowData)` di Google Apps Script. Setiap brief baru otomatis ditambahkan sebagai baris baru paling bawah dan **tidak akan pernah menimpa** data yang sudah ada.
+- **Auto-provisioning Tab**: Jika tab **`Client Briefs`** belum tersedia di spreadsheet, script secara otomatis membuatnya lengkap dengan styling header terracotta (`#B85D2A`).
+
+### Susunan Header yang Disarankan (27 Kolom):
+1. `Timestamp`
+2. `Brief ID`
+3. `Status` (Default: "Baru")
+4. `Nama Lengkap`
+5. `Email`
+6. `WhatsApp`
+7. `Jabatan/Peran`
+8. `Preferensi Kontak`
+9. `Nama Brand`
+10. `Bidang Bisnis`
+11. `Website/Media Sosial`
+12. `Deskripsi Brand`
+13. `Status Logo/Panduan Visual`
+14. `Kategori Layanan`
+15. `Detail Layanan`
+16. `Layanan Lainnya`
+17. `Tujuan Proyek`
+18. `Target Audiens`
+19. `Tantangan`
+20. `Hasil yang Diharapkan`
+21. `Referensi`
+22. `Waktu Mulai`
+23. `Tenggat Waktu`
+24. `Anggaran`
+25. `Aset yang Tersedia`
+26. `Catatan Tambahan`
+27. `Persetujuan Kontak`
+
+---
+
+## 🚀 Cara Menjalankan Project
+
+### Opsi 1: Buka Langsung (Paling Mudah)
+Cukup buka file `index.html` dengan peramban (browser) modern apa pun (Chrome, Edge, Firefox, Safari).
+
+### Opsi 2: Jalankan Menggunakan Local Server
+Buka terminal di direktori proyek dan jalankan:
+```bash
+# Menggunakan Node.js npx
+npx serve .
+
+# Atau menggunakan Python 3 (jika terpasang)
+python -m http.server 8000
+```
+Lalu akses `http://localhost:8000` di peramban.
+
+---
+
+## ⚙️ Langkah Manual Setup Google Sheets
+
+1. Buka spreadsheet target:
+   `https://docs.google.com/spreadsheets/d/1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo/edit`
+2. Klik menu **Extensions** (Ekstensi) > **Apps Script**.
+3. Hapus kode default di editor, lalu salin dan tempel seluruh isi file **`apps-script-backend.gs`**.
+4. Klik tombol **Save** (Ctrl+S).
+5. Klik **Deploy** > **New deployment**.
+6. Pilih type: **Web app**.
+   - *Description*: "Nara Creative Brief Submission"
+   - *Execute as*: **Me** (email Google Anda)
+   - *Who has access*: **Anyone** (Siapa saja)
+7. Klik **Deploy**, lalu klik **Authorize access** untuk menyetujui izin spreadsheet.
+8. Salin **Web app URL** yang muncul (format: `https://script.google.com/macros/s/.../exec`).
+9. Buka file **`app.js`**, lalu perbarui nilai `APPS_SCRIPT_URL`:
+   ```javascript
+   const CONFIG = {
+     APPS_SCRIPT_URL: 'URL_WEB_APP_YANG_ANDA_SALIN',
+     ...
+   };
+   ```
+10. Simpan file `app.js` dan uji pengiriman form brief di website!
