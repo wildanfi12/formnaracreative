@@ -1,1027 +1,427 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nara Creative Studio — Creative Agency Jakarta</title>
-  <meta name="description" content="Studio kreatif yang membantu brand Anda tumbuh melalui fotografi produk, video campaign, strategi konten media sosial, identitas visual, dan digital marketing terarah.">
-  <meta name="author" content="Nara Creative Studio">
-  
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/nara-logo-official.png">
-  <link rel="apple-touch-icon" href="assets/nara-logo-official.png">
-
-  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Core Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=3.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nara Creative Studio — Creative Agency Jakarta</title>
+    <meta name="description" content="Studio kreatif yang membantu brand Anda tumbuh melalui strategi visual, konten, dan digital marketing yang powerful.">
+    <link rel="icon" type="image/png" href="assets/nara-logo-official.png">
+    <link rel="stylesheet" href="styles.css?v=original-dark">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-  <!-- Accessibility Skip Link -->
-  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+    <!-- Native OS cursor used -->
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo" style="text-decoration: none; color: inherit;">
+                <img src="assets/nara-logo-official.png" alt="Nara Creative Logo" class="nav-logo-img">
+                <span>Nara Creative</span>
+            </a>
+            
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#services" class="nav-link">Layanan</a></li>
+                <li><a href="#work" class="nav-link">Portfolio</a></li>
+                <li><a href="#contact" class="nav-link nav-cta">Hubungi Kami</a></li>
+            </ul>
+        </div>
+    </nav>
 
-  <!-- Header / Navigation -->
-  <header class="navbar" id="navbar">
-    <div class="nav-container">
-      <a href="#home" class="nav-brand" aria-label="Nara Creative Studio Beranda">
-        <img src="assets/nara-logo-white-bg.png" alt="Nara Creative" class="nav-brand-logo">
-        <span class="sr-only">Nara Creative Studio</span>
-      </a>
-
-      <ul class="nav-links" id="navLinks" role="menubar">
-        <li role="none"><a href="#home" class="nav-link active" role="menuitem">Home</a></li>
-        <li role="none"><a href="#services" class="nav-link" role="menuitem">Layanan</a></li>
-        <li role="none"><a href="#process" class="nav-link" role="menuitem">Alur Kerja</a></li>
-        <li role="none"><a href="#work" class="nav-link" role="menuitem">Portfolio</a></li>
-        <li role="none"><a href="#pillars" class="nav-link" role="menuitem">Filosofi</a></li>
-        <li role="none"><a href="#contact" class="nav-link" role="menuitem">Kontak</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a href="#brief" class="btn btn-primary btn-sm btn-nav-cta" onclick="scrollToTarget('#brief')">Isi Brief Proyek</a>
-        <button class="nav-toggle" id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobileNav">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Mobile Drawer -->
-  <div class="mobile-nav" id="mobileNav" aria-label="Navigasi Seluler">
-    <ul class="mobile-nav-links">
-      <li><a href="#home" class="mobile-nav-link">Home</a></li>
-      <li><a href="#services" class="mobile-nav-link">Layanan</a></li>
-      <li><a href="#process" class="mobile-nav-link">Alur Kerja</a></li>
-      <li><a href="#work" class="mobile-nav-link">Portfolio</a></li>
-      <li><a href="#pillars" class="mobile-nav-link">Filosofi Kami</a></li>
-      <li><a href="#contact" class="mobile-nav-link">Kontak Resmi</a></li>
-    </ul>
-    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.75rem;">
-      <a href="#brief" class="btn btn-primary btn-block btn-large" onclick="scrollToTarget('#brief')">Mulai Brief Proyek Sekarang</a>
-      <a href="https://wa.me/6281281886198" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-block">WhatsApp Resmi</a>
-    </div>
-  </div>
-
-  <main id="main-content">
     <!-- Hero Section -->
     <section class="hero" id="home">
-      <div class="container">
-        <div class="hero-grid">
-          <div class="hero-content fade-up-element">
-            <div class="hero-tagline">
-              <span>Studio Kreatif & Strategi Visual Brand</span>
-            </div>
-            <h1 class="hero-title">
-              Cerita brand Anda <span class="highlight">dimulai di sini.</span>
-            </h1>
-            <p class="hero-subtitle">
-              Kami mengubah visi brand menjadi karya visual yang menggerakkan hasil nyata. Dari fotografi produk berselera tinggi, video kampanye komersial, hingga identitas visual dan strategi digital yang terarah.
-            </p>
-            <div class="hero-ctas">
-              <a href="#brief" class="btn btn-primary btn-large" onclick="scrollToTarget('#brief')">
-                Mulai Brief Proyek →
-              </a>
-              <a href="#services" class="btn btn-secondary btn-large" onclick="scrollToTarget('#services')">
-                Lihat 6 Layanan
-              </a>
-            </div>
-
-            <div class="hero-trust-bar">
-              <span class="hero-trust-label">Fokus Keahlian Studio:</span>
-              <div class="hero-trust-tags">
-                <span class="trust-badge">Food & Lifestyle Photography</span>
-                <span class="trust-badge">Commercial Video</span>
-                <span class="trust-badge">Social Media Strategy</span>
-                <span class="trust-badge">Visual Identity</span>
-                <span class="trust-badge">Digital Ads</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-visual-card fade-up-element">
-            <div class="card-header-badge">
-              <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <img src="assets/nara-logo-official.png" alt="Nara Creative Logo Mark" style="height: 36px; width: 36px; border-radius: 8px; object-fit: cover;">
-                <div class="agency-status-pill">
-                  <span class="status-dot"></span>
-                  <span>Terbuka untuk Kolaborasi</span>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-word">Cerita</span>
+                    <span class="title-word">brand</span>
+                    <span class="title-word">Anda</span>
+                    <span class="title-word highlight">dimulai di sini</span>
+                </h1>
+                <p class="hero-subtitle">Kami mengubah visi menjadi strategi kreatif yang menggerakkan hasil nyata. Foto produk yang memukau, konten viral, branding yang memorable.</p>
+                <div class="hero-cta">
+                    <button class="btn btn-primary" onclick="scrollToSection('#contact')">Mulai Proyek</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('#services')">Lihat Layanan</button>
                 </div>
-              </div>
-              <span style="font-size: 0.8125rem; font-weight: 600; color: var(--text-tertiary);">Jakarta, Indonesia</span>
             </div>
-
-            <div class="hero-feature-list">
-              <div class="hero-feature-item">
-                <span class="feature-badge-num">1</span>
-                <div class="hero-feature-text">
-                  <h4>Strategi Visual Terarah</h4>
-                  <p>Karya kreatif yang disesuaikan dengan target pasar dan persona konsumen brand Anda.</p>
+            
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <span>Video Campaign</span>
                 </div>
-              </div>
-
-              <div class="hero-feature-item">
-                <span class="feature-badge-num">2</span>
-                <div class="hero-feature-text">
-                  <h4>Produksi Efisien & Terstruktur</h4>
-                  <p>Tahapan brief, pra-produksi, shooting, hingga pasca-produksi berjalan jelas dan transparan.</p>
+                <div class="floating-card card-2">
+                    <span>Product Photo</span>
                 </div>
-              </div>
-
-              <div class="hero-feature-item">
-                <span class="feature-badge-num">3</span>
-                <div class="hero-feature-text">
-                  <h4>Pendampingan End-to-End</h4>
-                  <p>Komunikasi intensif dan konsultasi langsung dengan tim kreatif profesional.</p>
+                <div class="floating-card card-3">
+                    <span>Brand Identity</span>
                 </div>
-              </div>
+                <div class="animated-gradient"></div>
             </div>
-
-            <div class="hero-card-footer">
-              <span>Tanggapan Brief: <strong>Maksimal 24 Jam Kerja</strong></span>
-              <a href="#contact" class="btn-tertiary btn-sm" onclick="scrollToTarget('#contact')">Hubungi Studio →</a>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+        </div>
     </section>
 
-    <!-- Services Section (6 Mandatory Categories A-F) -->
-    <section class="services-section" id="services">
-      <div class="container">
-        <div class="section-header text-center fade-up-element">
-          <span class="section-tag">Layanan Kreatif Kami</span>
-          <h2 class="section-title">Solusi Menyeluruh untuk Pertumbuhan Brand</h2>
-          <p class="section-subtitle">
-            Pilih layanan yang paling relevan dengan kebutuhan fase bisnis Anda, atau kombinasikan beberapa layanan untuk kampanye komprehensif.
-          </p>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="section-tag">Apa yang kami tawarkan</span>
+            <h2 class="section-title">Layanan Lengkap untuk Brand Anda</h2>
+            <p class="section-subtitle">Dari fotografi produk hingga strategi digital, kami siap membawa brand Anda ke level berikutnya.</p>
         </div>
 
         <div class="services-grid">
-          <!-- Service A -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan A</span>
-              <span class="service-card-num">01</span>
+            <div class="service-card" data-service="photo">
+                <div class="service-badge">01</div>
+                <h3>Foto Produk & Lifestyle</h3>
+                <p>AI Product Photography, foto e-commerce berkualitas tinggi, visual katalog, lookbook fashion, dan fotografi makanan yang menggugah selera.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Foto Produk & Lifestyle</h3>
-            <p>
-              Produksi visual produk beresolusi tinggi, AI product photography, visual katalog e-commerce, lookbook fashion, dan fotografi makanan & minuman berselera tinggi.
-            </p>
-            <ul class="service-deliverables">
-              <li>AI Product Photography</li>
-              <li>Foto e-commerce & marketplace</li>
-              <li>Visual katalog & lookbook fashion</li>
-              <li>Food & beverage styling shot</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('photo')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
 
-          <!-- Service B -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan B</span>
-              <span class="service-card-num">02</span>
+            <div class="service-card" data-service="video">
+                <div class="service-badge">02</div>
+                <h3>Video & Campaign</h3>
+                <p>Video komersial profesional, kampanye peluncuran produk, konten viral TikTok dan Reels yang menggerakkan engagement tinggi.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Video & Campaign</h3>
-            <p>
-              Video komersial profesional, video peluncuran produk baru, kampanye digital terkonsep, serta konten dinamis TikTok & Reels yang memikat perhatian sejak detik pertama.
-            </p>
-            <ul class="service-deliverables">
-              <li>Video iklan & komersial digital</li>
-              <li>Video showcase detail produk</li>
-              <li>Kampanye peluncuran produk</li>
-              <li>Reels & TikTok video berseri</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('video')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
 
-          <!-- Service C -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan C</span>
-              <span class="service-card-num">03</span>
+            <div class="service-card" data-service="content">
+                <div class="service-badge">03</div>
+                <h3>Konten & Media Sosial</h3>
+                <p>Strategi konten, desain feed Instagram yang aesthetic, copywriting yang powerful, dan pengelolaan media sosial end-to-end.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Konten & Media Sosial</h3>
-            <p>
-              Strategi konten jangka panjang, perencanaan editorial kalender bulanan, desain visual feed Instagram, penulisan copy yang berkarakter, dan manajemen akun menyeluruh.
-            </p>
-            <ul class="service-deliverables">
-              <li>Strategi konten & editorial plan</li>
-              <li>Desain feed & carousel aesthetic</li>
-              <li>Copywriting caption yang berkarakter</li>
-              <li>Pengelolaan akun media sosial terarah</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('content')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
 
-          <!-- Service D -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan D</span>
-              <span class="service-card-num">04</span>
+            <div class="service-card" data-service="brand">
+                <div class="service-badge">04</div>
+                <h3>Brand Strategy</h3>
+                <p>Positioning brand yang kuat, brand story yang compelling, messaging strategy, dan visual identity yang memorable.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Brand Strategy & Storytelling</h3>
-            <p>
-              Perumusan positioning brand di tengah persaingan, narasi cerita (brand story) yang autentik, pesan utama (messaging), dan tone of voice yang konsisten di semua saluran.
-            </p>
-            <ul class="service-deliverables">
-              <li>Brand positioning & diferensiasi</li>
-              <li>Penyusunan narasi brand storytelling</li>
-              <li>Brand voice & tone guidelines</li>
-              <li>Konsep ide kampanye kreatif</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('brand')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
 
-          <!-- Service E -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan E</span>
-              <span class="service-card-num">05</span>
+            <div class="service-card" data-service="design">
+                <div class="service-badge">05</div>
+                <h3>Identitas Visual & Web</h3>
+                <p>Logo design, brand guidelines lengkap, desain kemasan premium, dan website yang convert. Semuanya dirancang untuk hasil maksimal.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Identitas Visual & Website</h3>
-            <p>
-              Eksplorasi logo dan simbol unik, panduan visual brand lengkap (warna, tipografi, grid), desain kemasan produk (packaging), serta website dan landing page modern.
-            </p>
-            <ul class="service-deliverables">
-              <li>Perancangan logo & filosofi</li>
-              <li>Brand guidelines & manual grafis</li>
-              <li>Desain kemasan produk (packaging)</li>
-              <li>Desain website & landing page</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('visual')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
 
-          <!-- Service F -->
-          <article class="service-card fade-up-element">
-            <div class="service-card-top">
-              <span class="service-card-tag">Layanan F</span>
-              <span class="service-card-num">06</span>
+            <div class="service-card" data-service="marketing">
+                <div class="service-badge">06</div>
+                <h3>Digital Marketing</h3>
+                <p>Strategi Meta Ads, TikTok Ads, Google Ads, dan Marketplace Ads yang terukur. Landing page yang convert, analitik yang detail.</p>
+                <span class="arrow">→</span>
             </div>
-            <h3>Digital Marketing & Growth</h3>
-            <p>
-              Manajemen iklan terukur di Meta Ads (Instagram/Facebook), TikTok Ads, Google Ads, dan Marketplace Ads, diiringi analitik mendalam serta laporan performa berkala.
-            </p>
-            <ul class="service-deliverables">
-              <li>Meta Ads & TikTok Ads terarah</li>
-              <li>Google Ads (Search & Performance)</li>
-              <li>Marketplace ads & optimasi listing</li>
-              <li>Analitik konversi & laporan berkala</li>
-            </ul>
-            <div class="service-card-action">
-              <button type="button" class="btn-select-service" onclick="openBriefWithService('marketing')">
-                Pilih Layanan Ini & Buat Brief →
-              </button>
-            </div>
-          </article>
         </div>
-      </div>
     </section>
 
     <!-- Process Section -->
-    <section class="process-section" id="process">
-      <div class="container">
-        <div class="section-header text-center fade-up-element">
-          <span class="section-tag">Transparansi Kerja</span>
-          <h2 class="section-title">Alur Kerja yang Jelas & Kolaboratif</h2>
-          <p class="section-subtitle">
-            Setiap proyek dijalankan melalui tahapan yang terukur, menjaga kualitas output, dan memastikan komunikasi yang terbuka di setiap langkah.
-          </p>
+    <section class="process">
+        <div class="section-header">
+            <span class="section-tag">Cara kami bekerja</span>
+            <h2 class="section-title">Proses yang Jelas & Transparan</h2>
         </div>
 
-        <div class="process-grid">
-          <div class="process-card fade-up-element">
-            <div class="process-number">01<span>/05</span></div>
-            <h3>Discovery & Briefing</h3>
-            <p>Membedah latar belakang brand, tujuan proyek, target audiens, serta ekspektasi deliverables secara mendalam.</p>
-          </div>
+        <div class="process-timeline">
+            <div class="timeline-item" data-step="1">
+                <div class="timeline-dot">1</div>
+                <div class="timeline-content">
+                    <h3>Konsultasi & Discovery</h3>
+                    <p>Kami mendengarkan cerita brand Anda. Apa tujuannya? Siapa target audience? Apa tantangan yang dihadapi? Dari sini strategi dimulai.</p>
+                </div>
+            </div>
 
-          <div class="process-card fade-up-element">
-            <div class="process-number">02<span>/05</span></div>
-            <h3>Konsep & Strategi</h3>
-            <p>Merumuskan moodboard, ide kreatif, narasi visual, serta jadwal produksi yang disetujui bersama sebelum eksekusi.</p>
-          </div>
+            <div class="timeline-item" data-step="2">
+                <div class="timeline-dot">2</div>
+                <div class="timeline-content">
+                    <h3>Strategi & Planning</h3>
+                    <p>Tim kami merancang roadmap kreatif yang aligned dengan goal bisnis Anda. Konsep, timeline, dan deliverables jelas dari awal.</p>
+                </div>
+            </div>
 
-          <div class="process-card fade-up-element">
-            <div class="process-number">03<span>/05</span></div>
-            <h3>Produksi & Eksekusi</h3>
-            <p>Tahap produksi aktif: shooting foto/video, desain grafis, editing, atau pengembangan aset visual dengan standar profesional.</p>
-          </div>
+            <div class="timeline-item" data-step="3">
+                <div class="timeline-dot">3</div>
+                <div class="timeline-content">
+                    <h3>Eksekusi & Produksi</h3>
+                    <p>Fase produksi dimulai. Foto shooting, video production, design iterations. Kami update Anda di setiap milestone penting.</p>
+                </div>
+            </div>
 
-          <div class="process-card fade-up-element">
-            <div class="process-number">04<span>/05</span></div>
-            <h3>Review & Iterasi</h3>
-            <p>Mempresentasikan hasil kerja, mengumpulkan masukan konstruktif Anda, dan melakukan revisi terarah hingga selaras visi.</p>
-          </div>
+            <div class="timeline-item" data-step="4">
+                <div class="timeline-dot">4</div>
+                <div class="timeline-content">
+                    <h3>Review & Revisi</h3>
+                    <p>Hasil diperlihatkan kepada Anda. Feedback Anda kami incorporasi untuk memastikan hasil 100% sesuai ekspektasi.</p>
+                </div>
+            </div>
 
-          <div class="process-card fade-up-element">
-            <div class="process-number">05<span>/05</span></div>
-            <h3>Final Handover</h3>
-            <p>Penyerahan aset beresolusi penuh, panduan penggunaan, serta rekomendasi penerapan untuk peluncuran kampanye.</p>
-          </div>
+            <div class="timeline-item" data-step="5">
+                <div class="timeline-dot">5</div>
+                <div class="timeline-content">
+                    <h3>Launch & Support</h3>
+                    <p>Siap untuk launch? Kami membantu deployment, monitoring awal, dan optimisasi berdasarkan performance data real-time.</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
-    <!-- Work / Showcase Section (Authentic Nara Works - No Fake Claims) -->
-    <section class="work-section" id="work">
-      <div class="container">
-        <div class="section-header text-center fade-up-element">
-          <span class="section-tag">Karya & Eksplorasi</span>
-          <h2 class="section-title">Studi Kasus & Kolaborasi Kreatif</h2>
-          <p class="section-subtitle">
-            Kumpulan proyek kreatif yang dirancang dengan dedikasi tinggi terhadap detail visual, karakter brand, dan kenyamanan audiens.
-          </p>
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="work">
+        <div class="section-header">
+            <span class="section-tag">Hasil kerja kami</span>
+            <h2 class="section-title">Lihat yang Sudah Kami Ciptakan</h2>
         </div>
 
-        <div class="work-grid">
-          <!-- Case 1 -->
-          <article class="work-card fade-up-element" onclick="openCaseStudy('belayang')">
-            <div class="work-media">
-              <img src="assets/portfolio/1.png" alt="Belayang Food Bali Culinary Visual" class="work-img" loading="lazy">
-              <span class="work-tag-pill">Food & Packaging</span>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="assets/portfolio/1.png" alt="Campaign E-Commerce Visual">
+                </div>
+                <h3>Campaign: Peluncuran Produk E-Commerce</h3>
+                <p>Strategi lengkap dari branding hingga ad campaigns. Hasil: 150% ROI dalam 3 bulan.</p>
+                <span class="portfolio-tag">Video • Ads • Design</span>
             </div>
-            <div class="work-content">
-              <span class="work-client">Belayang Food Bali</span>
-              <h3 class="work-title">Visual Culinary & Packaging Identity</h3>
-              <p class="work-desc">Fotografi kuliner berselera tinggi dan penyesuaian visual kemasan untuk mempertegas cita rasa khas Bali.</p>
-              <div class="work-deliverables-pills">
-                <span class="work-pill">Food Photography</span>
-                <span class="work-pill">Packaging</span>
-                <span class="work-pill">Social Visual</span>
-              </div>
-            </div>
-          </article>
 
-          <!-- Case 2 -->
-          <article class="work-card fade-up-element" onclick="openCaseStudy('howell')">
-            <div class="work-media">
-              <img src="assets/portfolio/ChatGPT Image 14 Jul 2026, 20.30.24.png" alt="Howell Flash Sale Campaign" class="work-img" loading="lazy">
-              <span class="work-tag-pill">Campaign & Motion</span>
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="assets/portfolio/ChatGPT Image 14 Jul 2026, 20.30.24.png" alt="Viral Video Campaign">
+                </div>
+                <h3>Content Series: Viral TikTok Campaign</h3>
+                <p>Series konten yang mencapai 2.5M views dan 250K engagement. Authentic storytelling yang resonate.</p>
+                <span class="portfolio-tag">Konten • Editing • Strategy</span>
             </div>
-            <div class="work-content">
-              <span class="work-client">Howell Lifestyle</span>
-              <h3 class="work-title">Dynamic Promotional Motion Creatives</h3>
-              <p class="work-desc">Aset promosi vertikal dan motion graphics berorientasi daya pikat cepat untuk kampanye peluncuran produk.</p>
-              <div class="work-deliverables-pills">
-                <span class="work-pill">Short Video</span>
-                <span class="work-pill">Motion Asset</span>
-                <span class="work-pill">Ad Creatives</span>
-              </div>
-            </div>
-          </article>
 
-          <!-- Case 3 -->
-          <article class="work-card fade-up-element" onclick="openCaseStudy('kalceri')">
-            <div class="work-media">
-              <img src="assets/portfolio/10.png" alt="Kalceri Cafe Brand Story" class="work-img" loading="lazy">
-              <span class="work-tag-pill">Branding & Space</span>
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <img src="assets/portfolio/10.png" alt="Brand Identity & Space">
+                </div>
+                <h3>Brand Identity: Fashion Brand</h3>
+                <p>Full branding package dari logo hingga brand guidelines. Hasil: visual identity yang distinctive dan marketable.</p>
+                <span class="portfolio-tag">Design • Branding • Guidelines</span>
             </div>
-            <div class="work-content">
-              <span class="work-client">Kalceri Coffee & Space</span>
-              <h3 class="work-title">Atmospheric Storytelling & Visual Direction</h3>
-              <p class="work-desc">Dokumentasi estetika ruang, produk kopi, dan perumusan narasi media sosial berbasis kultur nongkrong hangat.</p>
-              <div class="work-deliverables-pills">
-                <span class="work-pill">Brand Story</span>
-                <span class="work-pill">Interior Photo</span>
-                <span class="work-pill">Editorial Feed</span>
-              </div>
-            </div>
-          </article>
         </div>
-      </div>
+
+        <div class="portfolio-cta">
+            <p>Penasaran dengan case study lengkap?</p>
+            <button class="btn btn-primary" onclick="openModal('caseStudy')">Lihat Detail Case Study</button>
+        </div>
     </section>
 
-    <!-- Agency Pillars / Philosophy (Replacing Fake Numbers with Real Values) -->
-    <section class="pillars-section" id="pillars">
-      <div class="container">
-        <div class="section-header text-center fade-up-element">
-          <span class="section-tag">Prinsip Kerja</span>
-          <h2 class="section-title">Komitmen Nara Creative Studio</h2>
-          <p class="section-subtitle">
-            Kami mengutamakan integritas karya, komunikasi yang responsif, dan keselarasan visi dengan pemilik brand.
-          </p>
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <h3 class="stat-number" data-count="50">0</h3>
+            <p class="stat-label">Proyek Selesai</p>
         </div>
-
-        <div class="pillars-grid">
-          <div class="pillar-card fade-up-element">
-            <span class="pillar-num">01</span>
-            <h3>Fokus Relevansi Pasar</h3>
-            <p>Setiap konsep visual dibuat tidak hanya sekadar indah, melainkan relevan dengan perilaku konsumen nyata.</p>
-          </div>
-
-          <div class="pillar-card fade-up-element">
-            <span class="pillar-num">02</span>
-            <h3>Ketelitian Detail</h3>
-            <p>Dari pencahayaan fotografi, pemilihan warna, hingga pilihan kata dalam copy dipersiapkan dengan cermat.</p>
-          </div>
-
-          <div class="pillar-card fade-up-element">
-            <span class="pillar-num">03</span>
-            <h3>Komunikasi Jujur</h3>
-            <p>Kami menyampaikan timeline, alokasi sumber daya, dan batasan teknis secara transparan sejak tahap brief.</p>
-          </div>
-
-          <div class="pillar-card fade-up-element">
-            <span class="pillar-num">04</span>
-            <h3>Orientasi Pertumbuhan</h3>
-            <p>Karya visual kami bertujuan membantu brand membangun reputasi jangka panjang dan loyalitas konsumen.</p>
-          </div>
+        <div class="stat-item">
+            <h3 class="stat-number" data-count="30">0</h3>
+            <p class="stat-label">Brand Dipercaya</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Multi-Step Brief Wizard Section -->
-    <section class="brief-section" id="brief">
-      <div class="container">
-        <div class="section-header text-center fade-up-element">
-          <span class="section-tag">Mulai Kolaborasi</span>
-          <h2 class="section-title">Formulir Brief Proyek Kreatif</h2>
-          <p class="section-subtitle">
-            Lengkapi 5 langkah singkat di bawah ini agar kami dapat memahami karakter brand, kebutuhan layanan, dan sasaran proyek Anda secara komprehensif.
-          </p>
+        <div class="stat-item">
+            <h3 class="stat-number" data-count="5">0</h3>
+            <p class="stat-label">Tahun Pengalaman</p>
         </div>
-
-        <div class="brief-card-container fade-up-element" id="briefCardContainer">
-          <!-- Step Progress Indicator -->
-          <div class="brief-progress-header">
-            <div class="progress-meta">
-              <span class="progress-step-label" id="progressStepLabel">Langkah 1 dari 5</span>
-              <span class="progress-percent-label" id="progressPercentLabel">20% Selesai</span>
-            </div>
-            <div class="progress-bar-track">
-              <div class="progress-bar-fill" id="progressFill"></div>
-            </div>
-            <div class="step-indicators-pills" role="tablist">
-              <button type="button" class="step-pill active" data-step-pill="1" onclick="editStep(1)">
-                <span class="step-pill-num">1</span>
-                <span>Layanan</span>
-              </button>
-              <button type="button" class="step-pill" data-step-pill="2" onclick="editStep(2)">
-                <span class="step-pill-num">2</span>
-                <span>Brand</span>
-              </button>
-              <button type="button" class="step-pill" data-step-pill="3" onclick="editStep(3)">
-                <span class="step-pill-num">3</span>
-                <span>Tujuan</span>
-              </button>
-              <button type="button" class="step-pill" data-step-pill="4" onclick="editStep(4)">
-                <span class="step-pill-num">4</span>
-                <span>Rencana</span>
-              </button>
-              <button type="button" class="step-pill" data-step-pill="5" onclick="editStep(5)">
-                <span class="step-pill-num">5</span>
-                <span>Kontak</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Brief Form -->
-          <div class="brief-body">
-            <div id="briefFormErrorAlert" class="form-alert-error" role="alert"></div>
-
-            <form id="briefForm" novalidate>
-              <!-- ================= LANGKAH 1: KEBUTUHAN LAYANAN ================= -->
-              <div class="form-step active" id="step1">
-                <div class="step-heading">
-                  <h3>Langkah 1: Kebutuhan Layanan</h3>
-                  <p>Pilih satu atau beberapa kategori layanan yang Anda butuhkan untuk proyek ini.</p>
-                </div>
-
-                <div class="form-group">
-                  <div class="category-select-grid">
-                    <!-- A -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="photo">
-                      <div class="category-choice-content">
-                        <h4>A. Foto Produk & Lifestyle</h4>
-                        <p>AI photo, e-commerce, lookbook fashion, food & beverage.</p>
-                      </div>
-                    </label>
-
-                    <!-- B -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="video">
-                      <div class="category-choice-content">
-                        <h4>B. Video & Campaign</h4>
-                        <p>Iklan komersial, showcase produk, kampanye Reels & TikTok.</p>
-                      </div>
-                    </label>
-
-                    <!-- C -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="content">
-                      <div class="category-choice-content">
-                        <h4>C. Konten & Media Sosial</h4>
-                        <p>Perencanaan konten, feed Instagram, copywriting, manajemen akun.</p>
-                      </div>
-                    </label>
-
-                    <!-- D -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="brand">
-                      <div class="category-choice-content">
-                        <h4>D. Brand Strategy & Storytelling</h4>
-                        <p>Brand positioning, narasi cerita brand, panduan tone & voice.</p>
-                      </div>
-                    </label>
-
-                    <!-- E -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="visual">
-                      <div class="category-choice-content">
-                        <h4>E. Identitas Visual & Website</h4>
-                        <p>Logo design, visual guidelines, packaging kemasan, landing page.</p>
-                      </div>
-                    </label>
-
-                    <!-- F -->
-                    <label class="category-choice-card">
-                      <input type="checkbox" name="serviceCategory" value="marketing">
-                      <div class="category-choice-content">
-                        <h4>F. Digital Marketing & Growth</h4>
-                        <p>Meta Ads, TikTok Ads, Google Ads, analitik & optimasi konversi.</p>
-                      </div>
-                    </label>
-                  </div>
-                  <div class="form-error-msg" id="serviceCategoryError"></div>
-                </div>
-
-                <!-- Dynamic Subcategories Container -->
-                <div class="subcategories-wrapper" id="subcategoriesContainer">
-                  <div style="text-align: center; color: var(--text-tertiary); font-size: 0.9rem; padding: 1rem 0;">
-                    Pilih minimal satu kategori layanan di atas untuk melihat rincian kebutuhan spesifik.
-                  </div>
-                </div>
-
-                <div class="step-nav-footer">
-                  <span style="font-size: 0.85rem; color: var(--text-tertiary);">Langkah 1 dari 5</span>
-                  <button type="button" class="btn btn-primary" data-action="next-step" data-step="1">
-                    Lanjut ke Informasi Brand →
-                  </button>
-                </div>
-              </div>
-
-              <!-- ================= LANGKAH 2: TENTANG BRAND ================= -->
-              <div class="form-step" id="step2">
-                <div class="step-heading">
-                  <h3>Langkah 2: Tentang Brand</h3>
-                  <p>Bantu kami mengenal profil dan karakter bisnis yang akan kita kembangkan.</p>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="brandName" class="form-label">Nama Brand / Bisnis <span class="req">*</span></label>
-                    <input type="text" id="brandName" name="brandName" class="form-control" placeholder="Contoh: Belayang Food / Howell" required>
-                    <div class="form-error-msg" id="brandNameError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="businessField" class="form-label">Bidang Industri / Bisnis <span class="req">*</span></label>
-                    <input type="text" id="businessField" name="businessField" class="form-control" placeholder="Contoh: F&B, Fashion, Skincare, Tech" required>
-                    <div class="form-error-msg" id="businessFieldError"></div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="websiteSocial" class="form-label">Website atau Akun Media Sosial</label>
-                  <span class="form-label-desc">Tautan Instagram, TikTok, atau website yang saat ini aktif (opsional).</span>
-                  <input type="text" id="websiteSocial" name="websiteSocial" class="form-control" placeholder="https://instagram.com/brandanda atau website.com">
-                </div>
-
-                <div class="form-group">
-                  <label for="brandDescription" class="form-label">Deskripsi Singkat Brand & Produk Anda <span class="req">*</span></label>
-                  <span class="form-label-desc">Apa produk/jasa yang dijual, dan apa yang membuat brand Anda istimewa?</span>
-                  <textarea id="brandDescription" name="brandDescription" class="form-control" rows="4" placeholder="Ceritakan secara singkat tentang produk utama, keunikan, atau target pasar Anda..." required></textarea>
-                  <div class="form-error-msg" id="brandDescriptionError"></div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Status Identitas Visual & Logo Saat Ini <span class="req">*</span></label>
-                  <div class="radio-cards-grid">
-                    <label class="radio-card">
-                      <input type="radio" name="hasVisualIdentity" value="Sudah Lengkap & Siap Pakai">
-                      <span>Sudah Lengkap & Ada Guidelines</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="hasVisualIdentity" value="Baru Ada Logo Saja">
-                      <span>Baru Memiliki Logo Saja</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="hasVisualIdentity" value="Belum Ada / Ingin Buat Baru">
-                      <span>Belum Ada / Ingin Dibuat dari Awal</span>
-                    </label>
-                  </div>
-                  <div class="form-error-msg" id="hasVisualIdentityError"></div>
-                </div>
-
-                <div class="step-nav-footer">
-                  <button type="button" class="btn btn-secondary" data-action="prev-step" data-step="2">← Kembali</button>
-                  <button type="button" class="btn btn-primary" data-action="next-step" data-step="2">Lanjut ke Tujuan Proyek →</button>
-                </div>
-              </div>
-
-              <!-- ================= LANGKAH 3: TUJUAN PROYEK ================= -->
-              <div class="form-step" id="step3">
-                <div class="step-heading">
-                  <h3>Langkah 3: Tujuan Proyek</h3>
-                  <p>Jelaskan sasaran utama, tantangan yang ingin diselesaikan, dan hasil yang diharapkan.</p>
-                </div>
-
-                <div class="form-group">
-                  <label for="projectGoal" class="form-label">Tujuan Utama Proyek Ini <span class="req">*</span></label>
-                  <span class="form-label-desc">Contoh: Meningkatkan penjualan online, rebranding tampilan visual, peluncuran varian baru, dll.</span>
-                  <textarea id="projectGoal" name="projectGoal" class="form-control" rows="3" placeholder="Jelaskan apa yang ingin dicapai melalui kolaborasi kreatif ini..." required></textarea>
-                  <div class="form-error-msg" id="projectGoalError"></div>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="targetAudience" class="form-label">Target Audiens / Konsumen Utama</label>
-                    <span class="form-label-desc">Rentang usia, gender, profesi, atau ketertarikan mereka.</span>
-                    <input type="text" id="targetAudience" name="targetAudience" class="form-control" placeholder="Contoh: Wanita 20-35 tahun, urban lifestyle, pecinta kuliner">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="challenges" class="form-label">Tantangan yang Sedang Dihadapi</label>
-                    <span class="form-label-desc">Apa hambatan yang dirasakan saat ini?</span>
-                    <input type="text" id="challenges" name="challenges" class="form-control" placeholder="Contoh: Foto lama kurang tajam, feed kurang rapi, konversi iklan rendah">
-                  </div>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="expectedResults" class="form-label">Hasil yang Diharapkan</label>
-                    <input type="text" id="expectedResults" name="expectedResults" class="form-control" placeholder="Contoh: Aset foto siap iklan, feed rapi 30 hari, video Reels viral">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="references" class="form-label">Referensi Gaya / Benchmark (Link / Akun)</label>
-                    <input type="text" id="references" name="references" class="form-control" placeholder="Tautan Pinterest, Instagram akun panutan, atau Google Drive referensi">
-                  </div>
-                </div>
-
-                <div class="step-nav-footer">
-                  <button type="button" class="btn btn-secondary" data-action="prev-step" data-step="3">← Kembali</button>
-                  <button type="button" class="btn btn-primary" data-action="next-step" data-step="3">Lanjut ke Rencana Proyek →</button>
-                </div>
-              </div>
-
-              <!-- ================= LANGKAH 4: RENCANA PROYEK ================= -->
-              <div class="form-step" id="step4">
-                <div class="step-heading">
-                  <h3>Langkah 4: Rencana Proyek</h3>
-                  <p>Tentukan perkiraan waktu pengerjaan, anggaran, dan aset yang sudah Anda miliki.</p>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Perkiraan Waktu Mulai Pengerjaan <span class="req">*</span></label>
-                  <div class="radio-cards-grid">
-                    <label class="radio-card">
-                      <input type="radio" name="projectStart" value="Segera (1-2 minggu ke depan)">
-                      <span>Segera (1-2 Minggu)</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="projectStart" value="Bulan Depan (2-4 minggu)">
-                      <span>Bulan Depan (2-4 Minggu)</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="projectStart" value="Fleksibel / Perencanaan Awal">
-                      <span>Fleksibel / Masih Perencanaan</span>
-                    </label>
-                  </div>
-                  <div class="form-error-msg" id="projectStartError"></div>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="deadline" class="form-label">Target Tanggal Selesai / Deadline (Jika Ada)</label>
-                    <input type="text" id="deadline" name="deadline" class="form-control" placeholder="Contoh: Akhir bulan depan / Sebelum tanggal 15">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="budget" class="form-label">Estimasi Kisaran Anggaran (Budget)</label>
-                    <select id="budget" name="budget" class="form-control">
-                      <option value="">Pilih kisaran anggaran...</option>
-                      <option value="Di bawah 5 Juta">Di bawah Rp 5.000.000</option>
-                      <option value="5 - 15 Juta">Rp 5.000.000 - Rp 15.000.000</option>
-                      <option value="15 - 30 Juta">Rp 15.000.000 - Rp 30.000.000</option>
-                      <option value="Di atas 30 Juta">Di atas Rp 30.000.000</option>
-                      <option value="Fleksibel / Menyesuaikan Rekomendasi">Fleksibel / Menyesuaikan Rekomendasi Tim</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Aset yang Sudah Anda Miliki Saat Ini</label>
-                  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.75rem; margin-top: 0.5rem;">
-                    <label class="checkbox-single">
-                      <input type="checkbox" name="existingAssets" value="Sample Produk Fisik">
-                      <span>Sampel Produk Fisik Siap Kirim</span>
-                    </label>
-                    <label class="checkbox-single">
-                      <input type="checkbox" name="existingAssets" value="File Logo Master (AI/PNG)">
-                      <span>File Logo Master (AI/PNG Transparan)</span>
-                    </label>
-                    <label class="checkbox-single">
-                      <input type="checkbox" name="existingAssets" value="Foto/Video Sebelumnya">
-                      <span>Aset Foto / Video Sebelumnya</span>
-                    </label>
-                    <label class="checkbox-single">
-                      <input type="checkbox" name="existingAssets" value="Brand Guidelines / Panduan Warna">
-                      <span>Brand Guidelines & Kode Warna</span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="additionalNotes" class="form-label">Catatan Khusus Tambahan</label>
-                  <textarea id="additionalNotes" name="additionalNotes" class="form-control" rows="2" placeholder="Hal penting lain yang perlu tim kami perhatikan..."></textarea>
-                </div>
-
-                <div class="step-nav-footer">
-                  <button type="button" class="btn btn-secondary" data-action="prev-step" data-step="4">← Kembali</button>
-                  <button type="button" class="btn btn-primary" data-action="next-step" data-step="4">Lanjut ke Kontak & Verifikasi →</button>
-                </div>
-              </div>
-
-              <!-- ================= LANGKAH 5: KONTAK ================= -->
-              <div class="form-step" id="step5">
-                <div class="step-heading">
-                  <h3>Langkah 5: Informasi Kontak</h3>
-                  <p>Siapa perwakilan brand yang dapat kami hubungi untuk konsultasi brief ini?</p>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="fullName" class="form-label">Nama Lengkap Anda <span class="req">*</span></label>
-                    <input type="text" id="fullName" name="fullName" class="form-control" placeholder="Nama lengkap Anda" required>
-                    <div class="form-error-msg" id="fullNameError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="role" class="form-label">Jabatan / Peran di Brand</label>
-                    <input type="text" id="role" name="role" class="form-control" placeholder="Contoh: Founder, Brand Manager, Marketing Lead">
-                  </div>
-                </div>
-
-                <div class="form-row-2">
-                  <div class="form-group">
-                    <label for="email" class="form-label">Alamat Email Aktif <span class="req">*</span></label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="emailanda@domain.com" required>
-                    <div class="form-error-msg" id="emailError"></div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="whatsapp" class="form-label">Nomor WhatsApp Aktif <span class="req">*</span></label>
-                    <input type="tel" id="whatsapp" name="whatsapp" class="form-control" placeholder="08xxxxxxxxxx atau +628xxxxxxxxxx" required>
-                    <div class="form-error-msg" id="whatsappError"></div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">Preferensi Jalur Komunikasi Utama <span class="req">*</span></label>
-                  <div class="radio-cards-grid">
-                    <label class="radio-card">
-                      <input type="radio" name="preferredContact" value="WhatsApp">
-                      <span>WhatsApp (Disukai)</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="preferredContact" value="Email">
-                      <span>Email</span>
-                    </label>
-                    <label class="radio-card">
-                      <input type="radio" name="preferredContact" value="Panggilan Telepon / Virtual Meet">
-                      <span>Telepon / Google Meet</span>
-                    </label>
-                  </div>
-                  <div class="form-error-msg" id="preferredContactError"></div>
-                </div>
-
-                <div class="form-group" style="margin-top: 1.5rem;">
-                  <label class="checkbox-single">
-                    <input type="checkbox" id="contactConsent" name="contactConsent" required>
-                    <span>Saya mengizinkan tim Nara Creative Studio untuk menghubungi saya terkait rincian brief proyek ini. <span class="req">*</span></span>
-                  </label>
-                  <div class="form-error-msg" id="contactConsentError"></div>
-                </div>
-
-                <div class="step-nav-footer">
-                  <button type="button" class="btn btn-secondary" data-action="prev-step" data-step="5">← Kembali</button>
-                  <button type="button" class="btn btn-primary" data-action="next-step" data-step="5">
-                    Review Brief Lengkap →
-                  </button>
-                </div>
-              </div>
-
-              <!-- ================= LANGKAH REVIEW / SUMMARY ================= -->
-              <div class="form-step" id="stepSummary">
-                <div class="step-heading">
-                  <h3>Ringkasan Brief Proyek Anda</h3>
-                  <p>Periksa kembali data Anda sebelum dikirimkan ke tim Nara Creative Studio.</p>
-                </div>
-
-                <div class="summary-container" id="summaryCardsContainer">
-                  <!-- Generated via JavaScript -->
-                </div>
-
-                <div style="background: var(--bg-subtle); padding: 1.25rem 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); margin-bottom: 2rem;">
-                  <div style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.55;">
-                    <strong style="color: var(--text-primary);">Keamanan & Privasi Data:</strong> Brief Anda akan disimpan dengan aman ke spreadsheet resmi Nara Creative. Setiap submission ditambahkan sebagai baris baru tanpa menimpa data yang telah ada. Tim kami akan menghubungi Anda maksimal dalam 24 jam kerja.
-                  </div>
-                </div>
-
-                <div class="step-nav-footer">
-                  <button type="button" class="btn btn-secondary" data-action="prev-step" data-step="Summary">
-                    ← Kembali Edit Data
-                  </button>
-                  <button type="submit" class="btn btn-primary btn-large" id="submitBriefBtn">
-                    Kirim Brief Sekarang →
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <!-- Success State Screen (Shown after successful submission) -->
-            <div class="success-view" id="briefSuccessView" style="display: none;">
-              <div class="success-badge-icon">✓</div>
-              <h3>Brief Berhasil Terkirim!</h3>
-              <p>
-                Terima kasih telah mempercayakan brief proyek brand Anda kepada Nara Creative Studio. Data brief Anda telah tercatat dengan aman di spreadsheet proyek kami.
-              </p>
-              
-              <div class="brief-id-banner">
-                <span>Brief ID: <strong id="successBriefIdDisplay">NARA-2026-XXXX</strong></span>
-                <button type="button" onclick="copyBriefId()">Salin ID</button>
-              </div>
-
-              <div class="success-actions">
-                <a href="#" id="btnNotifyWhatsapp" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                  Konfirmasi via WhatsApp
-                </a>
-                <button type="button" class="btn btn-secondary" onclick="resetBriefForm()">
-                  Isi Brief Baru Lainnya
-                </button>
-              </div>
-            </div>
-          </div>
+        <div class="stat-item">
+            <h3 class="stat-number" data-count="98">0</h3>
+            <p class="stat-label">% Klien Puas</p>
         </div>
-      </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-      <div class="container">
-        <div class="contact-layout">
-          <div class="contact-info fade-up-element">
-            <span class="section-tag">Kontak Resmi</span>
-            <h2 class="section-title">Mari Terhubung & Mulai Berkarya</h2>
-            <p class="section-subtitle">
-              Punya pertanyaan seputar layanan atau ingin berdiskusi langsung sebelum mengisi brief? Hubungi kanal resmi kami di bawah ini:
-            </p>
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info">
+                <h2 class="contact-title">Mari Kita Ciptakan Sesuatu yang Luar Biasa</h2>
+                <p class="contact-subtitle">Siap untuk membawa brand Anda ke level berikutnya? Hubungi kami hari ini.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                        </svg>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:naracreativestudio.id@gmail.com">naracreativestudio.id@gmail.com</a>
+                        </div>
+                    </div>
 
-            <div class="contact-cards-list">
-              <!-- WhatsApp -->
-              <a href="https://wa.me/6281281886198" target="_blank" rel="noopener noreferrer" class="contact-link-card">
-                <div class="contact-card-details">
-                  <h4>WhatsApp Resmi</h4>
-                  <p>+62 812-8188-6198</p>
-                </div>
-                <span class="contact-card-arrow">→</span>
-              </a>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                        </svg>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <a href="https://wa.me/6281281886198" target="_blank">+62 812-8188-6198</a>
+                        </div>
+                    </div>
 
-              <!-- Email -->
-              <a href="mailto:naracreativestudio.id@gmail.com" class="contact-link-card">
-                <div class="contact-card-details">
-                  <h4>Email Studio</h4>
-                  <p>naracreativestudio.id@gmail.com</p>
+                    <div class="contact-item">
+                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div>
+                            <h4>Instagram</h4>
+                            <a href="https://instagram.com/naracreativestudio" target="_blank">@naracreativestudio</a>
+                        </div>
+                    </div>
                 </div>
-                <span class="contact-card-arrow">→</span>
-              </a>
 
-              <!-- Instagram -->
-              <a href="https://instagram.com/naracreativestudio" target="_blank" rel="noopener noreferrer" class="contact-link-card">
-                <div class="contact-card-details">
-                  <h4>Instagram Resmi</h4>
-                  <p>@naracreativestudio</p>
+                <div class="contact-buttons">
+                    <button class="btn btn-primary" onclick="openModal('brief')">Mulai Brief Proyek</button>
+                    <button class="btn btn-secondary" onclick="openModal('chat')">Chat Sekarang</button>
                 </div>
-                <span class="contact-card-arrow">→</span>
-              </a>
             </div>
-          </div>
 
-          <!-- Quick Inquiry Form -->
-          <div class="quick-inquiry-box fade-up-element">
-            <h3>Konsultasi Cepat</h3>
-            <p>Tinggalkan pesan singkat dan tim kami akan segera membalas via WhatsApp:</p>
-
-            <form onsubmit="handleQuickInquiry(event)">
-              <div class="form-group">
-                <label for="quickName" class="form-label">Nama Anda <span class="req">*</span></label>
-                <input type="text" id="quickName" name="quickName" class="form-control" placeholder="Nama Anda" required>
-              </div>
-
-              <div class="form-group">
-                <label for="quickContact" class="form-label">Nomor WhatsApp <span class="req">*</span></label>
-                <input type="tel" id="quickContact" name="quickContact" class="form-control" placeholder="08xxxxxxxxxx" required>
-              </div>
-
-              <div class="form-group">
-                <label for="quickMessage" class="form-label">Pertanyaan atau Kebutuhan Anda</label>
-                <textarea id="quickMessage" name="quickMessage" class="form-control" rows="3" placeholder="Ceritakan pertanyaan Anda seputar layanan atau estimasi pengerjaan..."></textarea>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-block">
-                Kirim Pesan ke WhatsApp Studio →
-              </button>
-            </form>
-          </div>
+            <div class="contact-form">
+                <form id="quickContactForm" onsubmit="handleQuickContact(event)">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nama Anda" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" placeholder="WhatsApp" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Ceritakan proyek Anda..." rows="5" class="form-input"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                </form>
+            </div>
         </div>
-      </div>
     </section>
-  </main>
 
-  <!-- Modal Case Study Detail -->
-  <div class="modal-backdrop" id="caseStudyModal" role="dialog" aria-modal="true" aria-labelledby="caseStudyModalTitle" aria-hidden="true">
-    <div class="modal-sheet modal-lg">
-      <div class="modal-header">
-        <h3 id="caseStudyModalTitle">Detail Studi Kasus</h3>
-        <button type="button" class="modal-close-btn" data-close-modal aria-label="Tutup modal">✕</button>
-      </div>
-      <div class="modal-content-area" id="caseStudyContent">
-        <!-- Rendered by JS -->
-      </div>
+    <!-- Modal for Brief -->
+    <div class="modal" id="briefModal">
+        <div class="modal-content modal-large">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h2>Ceritakan Proyekmu</h2>
+            
+            <form id="briefForm" onsubmit="handleBriefSubmit(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Brand/Bisnis</label>
+                        <input type="text" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Bidang Industri</label>
+                        <input type="text" placeholder="Contoh: Fashion, F&B, Tech" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Layanan yang Anda Butuhkan</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox"><input type="checkbox" name="service"> Foto Produk</label>
+                        <label class="checkbox"><input type="checkbox" name="service"> Video Campaign</label>
+                        <label class="checkbox"><input type="checkbox" name="service"> Konten Media Sosial</label>
+                        <label class="checkbox"><input type="checkbox" name="service"> Brand Strategy</label>
+                        <label class="checkbox"><input type="checkbox" name="service"> Design & Web</label>
+                        <label class="checkbox"><input type="checkbox" name="service"> Digital Marketing</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Deskripsi Proyek</label>
+                    <textarea placeholder="Jelaskan detail proyek Anda..." required class="form-input"></textarea>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Timeline Dimulai</label>
+                        <select required class="form-input">
+                            <option>Pilih timeline</option>
+                            <option>Segera (1-2 minggu)</option>
+                            <option>1 bulan</option>
+                            <option>1-3 bulan</option>
+                            <option>Fleksibel</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kisaran Budget</label>
+                        <select required class="form-input">
+                            <option>Pilih budget</option>
+                            <option>< 10 juta</option>
+                            <option>10 - 30 juta</option>
+                            <option>30 - 50 juta</option>
+                            <option>> 50 juta</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="tel" required class="form-input">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">Kirim Brief Saya</button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="assets/nara-logo-official.png" alt="Nara Creative Logo" style="height: 52px; width: 52px; border-radius: 12px; margin-bottom: 1.25rem; object-fit: cover; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-          <h3>Nara Creative Studio</h3>
-          <p>
-            Studio kreatif yang mendedikasikan keahlian visual, storytelling, dan strategi digital untuk membantu brand bermakna tumbuh secara berkelanjutan.
-          </p>
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content modal-small">
+            <div class="success-icon">✓</div>
+            <h2>Terima Kasih!</h2>
+            <p>Brief Anda sudah kami terima. Tim Nara Creative akan menghubungi Anda dalam 24 jam.</p>
+            <button class="btn btn-primary" onclick="closeModal()">Tutup</button>
         </div>
-
-        <div class="footer-col">
-          <h4>Navigasi</h4>
-          <ul class="footer-col-links">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#services">6 Layanan Utama</a></li>
-            <li><a href="#process">Alur Transparan</a></li>
-            <li><a href="#work">Portfolio & Karya</a></li>
-            <li><a href="#brief">Form Brief Proyek</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Kanal Resmi</h4>
-          <ul class="footer-col-links">
-            <li><a href="https://wa.me/6281281886198" target="_blank" rel="noopener noreferrer">WhatsApp: +62 812-8188-6198</a></li>
-            <li><a href="mailto:naracreativestudio.id@gmail.com">Email: naracreativestudio.id@gmail.com</a></li>
-            <li><a href="https://instagram.com/naracreativestudio" target="_blank" rel="noopener noreferrer">Instagram: @naracreativestudio</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>&copy; 2026 Nara Creative Studio. Hak Cipta Dilindungi.</p>
-        <p>Dirancang dengan visual netral hangat & arsitektur kode terstruktur.</p>
-      </div>
     </div>
-  </footer>
 
-  <!-- Application Script -->
-  <script src="app.js?v=3.0"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <img src="assets/nara-logo-official.png" alt="Nara Creative" style="height: 30px; width: auto;">
+                    <h3 style="margin: 0;">Nara Creative Studio</h3>
+                </div>
+                <p>Mengubah cerita brand menjadi visual yang powerful dan strategi yang menggerakkan hasil.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#services">Layanan</a>
+                <a href="#work">Portfolio</a>
+                <a href="#contact">Kontak</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://instagram.com/naracreativestudio" target="_blank" title="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.015-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Nara Creative Studio. All rights reserved.</p>
+        </div>
+    </footer>
 
-
+    <script src="app.js?v=original-dark"></script>
 </body>
 </html>
