@@ -519,7 +519,9 @@ section {
 /* Process Section */
 .process-timeline {
     position: relative;
-    padding: 2rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 0;
 }
 
 .process-timeline::before {
@@ -530,16 +532,20 @@ section {
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(255, 107, 53, 0.2) 100%);
+    z-index: 1;
 }
 
 .timeline-item {
+    position: relative;
+    width: 50%;
+    margin-bottom: 3.5rem;
+    box-sizing: border-box;
     display: flex;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    align-items: center;
+    z-index: 2;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
-    position: relative;
 }
 
 .timeline-item[data-step="1"] { animation-delay: 0.1s; }
@@ -548,64 +554,125 @@ section {
 .timeline-item[data-step="4"] { animation-delay: 0.4s; }
 .timeline-item[data-step="5"] { animation-delay: 0.5s; }
 
+/* Odd steps (1, 3, 5): Left column */
 .timeline-item:nth-child(odd) {
-    flex-direction: row-reverse;
+    left: 0;
+    padding-right: 3.5rem;
+    text-align: right;
+}
+
+/* Even steps (2, 4): Right column */
+.timeline-item:nth-child(even) {
+    left: 50%;
+    padding-left: 3.5rem;
+    text-align: left;
 }
 
 .timeline-dot {
-    width: 60px;
-    height: 60px;
-    background: var(--accent);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    background: var(--primary);
+    border: 3px solid var(--accent);
+    color: var(--accent);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     flex-shrink: 0;
     transition: var(--transition-smooth);
+    z-index: 3;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.timeline-item:nth-child(odd) .timeline-dot {
+    right: -26px;
+    left: auto;
+}
+
+.timeline-item:nth-child(even) .timeline-dot {
+    left: -26px;
+    right: auto;
 }
 
 .timeline-item:hover .timeline-dot {
-    transform: scale(1.2);
-    box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+    background: var(--accent);
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.15);
+    box-shadow: 0 0 25px rgba(255, 107, 53, 0.6);
 }
 
 .timeline-content {
-    flex: 1;
-    padding: 1.5rem;
-    background: rgba(26, 26, 26, 0.5);
+    width: 100%;
+    padding: 1.75rem 2rem;
+    background: var(--secondary);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 12px;
     transition: var(--transition-smooth);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .timeline-item:hover .timeline-content {
-    background: rgba(26, 26, 26, 0.9);
+    background: rgba(32, 32, 32, 0.95);
     border-color: var(--accent);
+    transform: translateY(-4px);
 }
 
 .timeline-content h3 {
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    color: #ffffff;
 }
 
 .timeline-content p {
     color: var(--text-dim);
+    line-height: 1.6;
+    margin: 0;
 }
 
 @media (max-width: 768px) {
+    .process-timeline {
+        padding: 2rem 0;
+    }
+    
     .process-timeline::before {
-        left: 20px;
+        left: 24px;
+        transform: none;
     }
     
-    .timeline-item {
-        flex-direction: column !important;
+    .timeline-item,
+    .timeline-item:nth-child(odd),
+    .timeline-item:nth-child(even) {
+        width: 100%;
+        left: 0;
+        padding-left: 64px;
+        padding-right: 0;
+        text-align: left;
+        margin-bottom: 2rem;
     }
     
-    .timeline-dot {
-        width: 50px;
-        height: 50px;
+    .timeline-dot,
+    .timeline-item:nth-child(odd) .timeline-dot,
+    .timeline-item:nth-child(even) .timeline-dot {
+        left: 0;
+        right: auto;
+        top: 1.75rem;
+        transform: none;
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+    
+    .timeline-item:hover .timeline-dot {
+        transform: scale(1.1);
+    }
+    
+    .timeline-content {
+        padding: 1.25rem 1.5rem;
     }
 }
 
