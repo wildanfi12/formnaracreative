@@ -1,489 +1,464 @@
-// ==========================================
-// CONFIGURATION
-// ==========================================
+/* ==========================================================================
+   NARA Creative — Project Brief Form
+   - 3 langkah singkat + rekap + kirim
+   - Jawaban tersimpan otomatis (localStorage) saat pindah langkah / reload
+   - Sukses HANYA ditampilkan jika backend Apps Script mengonfirmasi
+   ========================================================================== */
+
 const CONFIG = {
-    APPS_SCRIPT_URL: 'YOUR_APPS_SCRIPT_URL',
-    SPREADSHEET_ID: '1qIoAhvmh_kmQ89fQcnVkzecYzR0AWzZo8OgDBlpQjJo',
-    WHATSAPP: '6281281886198',
-    EMAIL: 'naracreativestudio.id@gmail.com',
-    INSTAGRAM: '@naracreativestudio'
+  // Tempel URL Web App Apps Script (berakhiran /exec) di sini.
+  // Tidak ada kredensial di frontend — URL ini hanya endpoint publik.
+  APPS_SCRIPT_URL: 'YOUR_APPS_SCRIPT_WEB_APP_URL',
+  WHATSAPP: '6281281886198',
+  EMAIL: 'naracreativestudio.id@gmail.com',
+  STORAGE_KEY: 'nara_brief_v5',
+  TIMEOUT_MS: 20000
 };
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // initCursor(); - native OS cursor used per user instruction
-    initNavigation();
-    initScrollAnimations();
-    initStatCounters();
-    initServiceCards();
-    setupModals();
+const STEP_NAMES = ['Kebutuhan', 'Rencana', 'Kontak', 'Rekap'];
+const TOTAL_INPUT_STEPS = 3;
+
+const form = document.getElementById('briefForm');
+const steps = Array.from(form.querySelectorAll('.step'));
+const btnBack = document.getElementById('btnBack');
+const btnNext = document.getElementById('btnNext');
+const btnSubmit = document.getElementById('btnSubmit');
+const statusBox = document.getElementById('formStatus');
+const progressBar = document.getElementById('progressBar');
+const progressLabel = document.getElementById('progressLabel');
+const progressName = document.getElementById('progressName');
+const introSteps = Array.from(document.querySelectorAll('.intro-steps li'));
+
+let currentStep = 1;
+let isSubmitting = false;
+
+/* ---------- Helpers ---------- */
+
+const isConfigured = () =>
+  /^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(CONFIG.APPS_SCRIPT_URL.trim());
+
+const clean = (v) => String(v == null ? '' : v).trim();
+
+function normalizePhone(raw) {
+  let p = clean(raw).replace(/[\s\-().]/g, '');
+  if (p.startsWith('+')) p = p.slice(1);
+  if (p.startsWith('0')) p = '62' + p.slice(1);
+  return p;
+}
+
+function getData() {
+  const fd = new FormData(form);
+  return {
+    services: fd.getAll('services'),
+    projectSummary: clean(fd.get('projectSummary')),
+    brandName: clean(fd.get('brandName')),
+    brandLink: clean(fd.get('brandLink')),
+    budget: clean(fd.get('budget')),
+    timeline: clean(fd.get('timeline')),
+    fullName: clean(fd.get('fullName')),
+    whatsapp: clean(fd.get('whatsapp')),
+    email: clean(fd.get('email')),
+    company_site: clean(fd.get('company_site'))
+  };
+}
+
+/* ---------- Persistence ---------- */
+
+function saveDraft() {
+  try {
+    const { company_site, ...data } = getData();
+    localStorage.setItem(CONFIG.STORAGE_KEY, JSON.stringify({ data, step: currentStep }));
+  } catch (_) { /* storage penuh / diblokir: abaikan */ }
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(CONFIG.STORAGE_KEY);
+    if (!raw) return;
+    const { data, step } = JSON.parse(raw);
+    if (!data) return;
+
+    form.querySelectorAll('input[name="services"]').forEach((el) => {
+      el.checked = Array.isArray(data.services) && data.services.includes(el.value);
+    });
+    ['budget', 'timeline'].forEach((name) => {
+      form.querySelectorAll(`input[name="${name}"]`).forEach((el) => { el.checked = el.value === data[name]; });
+    });
+    ['projectSummary', 'brandName', 'brandLink', 'fullName', 'whatsapp', 'email'].forEach((name) => {
+      if (form.elements[name] && typeof data[name] === 'string') form.elements[name].value = data[name];
+    });
+    updateCounter();
+
+    // Kembali ke langkah terakhir hanya jika langkah sebelumnya valid
+    const target = Math.min(Math.max(parseInt(step, 10) || 1, 1), 4);
+    for (let s = 1; s < target; s++) {
+      if (!validateStep(s, false)) { showStep(s, false); return; }
+    }
+    showStep(target, false);
+  } catch (_) {
+    localStorage.removeItem(CONFIG.STORAGE_KEY);
+  }
+}
+
+function clearDraft() {
+  try { localStorage.removeItem(CONFIG.STORAGE_KEY); } catch (_) {}
+}
+
+/* ---------- Validation ---------- */
+
+function setError(fieldName, message) {
+  const err = document.getElementById(`err-${fieldName}`);
+  if (err) err.textContent = message || '';
+  const wrapper = err ? err.closest('.field') : null;
+  if (wrapper) wrapper.classList.toggle('is-invalid', Boolean(message));
+  const input = form.elements[fieldName];
+  if (input && input.setAttribute && !(input instanceof RadioNodeList)) {
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+  }
+}
+
+const RULES = {
+  1: (d) => ({
+    services: d.services.length ? '' : 'Pilih minimal satu layanan.',
+    projectSummary: d.projectSummary.length >= 15 ? '' :
+      (d.projectSummary ? 'Ceritakan sedikit lebih detail (minimal 15 karakter).' : 'Ceritakan singkat kebutuhan proyek Anda.')
+  }),
+  2: (d) => ({
+    brandName: d.brandName.length >= 2 ? '' : 'Isi nama brand atau bisnis Anda.',
+    budget: d.budget ? '' : 'Pilih perkiraan anggaran.',
+    timeline: d.timeline ? '' : 'Pilih waktu mulai proyek.'
+  }),
+  3: (d) => {
+    const phone = normalizePhone(d.whatsapp);
+    return {
+      fullName: d.fullName.length >= 2 ? '' : 'Isi nama lengkap Anda.',
+      whatsapp: !d.whatsapp ? 'Isi nomor WhatsApp aktif.' :
+        (/^62\d{8,13}$/.test(phone) ? '' : 'Format nomor belum sesuai. Contoh: 0812xxxxxxx atau +62812xxxxxxx.'),
+      email: !d.email ? 'Isi alamat email Anda.' :
+        (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email) ? '' : 'Format email belum sesuai. Contoh: nama@email.com.')
+    };
+  }
+};
+
+function validateStep(step, showErrors = true) {
+  const rule = RULES[step];
+  if (!rule) return true;
+  const errors = rule(getData());
+  let firstInvalid = null;
+
+  Object.entries(errors).forEach(([field, msg]) => {
+    if (showErrors) setError(field, msg);
+    if (msg && !firstInvalid) firstInvalid = field;
+  });
+
+  if (firstInvalid && showErrors) {
+    const el = form.querySelector(`[name="${firstInvalid}"]`);
+    if (el) el.focus({ preventScroll: false });
+  }
+  return !firstInvalid;
+}
+
+/* ---------- Step navigation ---------- */
+
+function showStep(step, focus = true) {
+  currentStep = step;
+  steps.forEach((el) => {
+    const active = Number(el.dataset.step) === step;
+    el.hidden = !active;
+    el.classList.toggle('is-active', active);
+  });
+
+  const isReview = step === 4;
+  btnBack.hidden = step === 1;
+  btnNext.hidden = isReview;
+  btnSubmit.hidden = !isReview;
+  btnNext.textContent = step === 3 ? 'Lihat Rekap' : 'Lanjut';
+
+  progressLabel.textContent = isReview ? 'Langkah terakhir' : `Langkah ${step} dari ${TOTAL_INPUT_STEPS}`;
+  progressName.textContent = STEP_NAMES[step - 1];
+  progressBar.style.width = `${(Math.min(step, 4) / 4) * 100}%`;
+
+  introSteps.forEach((li, i) => {
+    li.classList.toggle('is-current', i + 1 === step);
+    li.classList.toggle('is-done', i + 1 < step);
+  });
+
+  if (isReview) renderReview();
+  hideStatus();
+
+  if (focus) {
+    const title = steps.find((el) => Number(el.dataset.step) === step).querySelector('.step-title');
+    if (title) {
+      title.setAttribute('tabindex', '-1');
+      title.focus({ preventScroll: true });
+    }
+    const top = document.getElementById('brief').getBoundingClientRect().top + window.scrollY - 90;
+    if (window.scrollY > top) window.scrollTo({ top, behavior: 'smooth' });
+  }
+  saveDraft();
+}
+
+function goNext() {
+  if (!validateStep(currentStep)) return;
+  showStep(currentStep + 1);
+}
+
+function goBack() {
+  if (currentStep > 1) showStep(currentStep - 1);
+}
+
+/* ---------- Review ---------- */
+
+function renderReview() {
+  const d = getData();
+  const rows = [
+    ['Layanan', d.services.join(', '), 1],
+    ['Ringkasan', d.projectSummary, 1],
+    ['Brand', d.brandName + (d.brandLink ? `\n${d.brandLink}` : ''), 2],
+    ['Anggaran', d.budget, 2],
+    ['Mulai', d.timeline, 2],
+    ['Nama', d.fullName, 3],
+    ['WhatsApp', d.whatsapp, 3],
+    ['Email', d.email, 3]
+  ];
+
+  const list = document.getElementById('reviewList');
+  list.textContent = '';
+  rows.forEach(([key, val, step]) => {
+    const item = document.createElement('div');
+    item.className = 'review-item';
+
+    const k = document.createElement('span');
+    k.className = 'review-key';
+    k.textContent = key;
+
+    const v = document.createElement('span');
+    v.className = 'review-val' + (val ? '' : ' is-empty');
+    v.textContent = val || '—';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'review-edit';
+    btn.textContent = 'Ubah';
+    btn.setAttribute('aria-label', `Ubah ${key}`);
+    btn.addEventListener('click', () => showStep(step));
+
+    item.append(k, v, btn);
+    list.appendChild(item);
+  });
+}
+
+/* ---------- Status ---------- */
+
+function hideStatus() {
+  statusBox.hidden = true;
+  statusBox.className = 'status';
+  statusBox.textContent = '';
+}
+
+function buildWaText(d, briefId) {
+  return [
+    'Halo NARA Creative, saya ingin mengirim brief proyek:',
+    '',
+    briefId ? `ID Brief: ${briefId}` : null,
+    `Nama: ${d.fullName}`,
+    `Brand: ${d.brandName}${d.brandLink ? ` (${d.brandLink})` : ''}`,
+    `Layanan: ${d.services.join(', ')}`,
+    `Anggaran: ${d.budget}`,
+    `Mulai: ${d.timeline}`,
+    `Ringkasan: ${d.projectSummary}`
+  ].filter((l) => l !== null).join('\n');
+}
+
+function showError(message, d) {
+  statusBox.hidden = false;
+  statusBox.className = 'status is-error';
+  statusBox.textContent = '';
+
+  const p1 = document.createElement('p');
+  p1.textContent = message;
+
+  const p2 = document.createElement('p');
+  p2.append('Jawaban Anda tetap tersimpan. Coba kirim ulang, atau kirim rekap ini langsung lewat ');
+  const wa = document.createElement('a');
+  wa.href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(buildWaText(d))}`;
+  wa.target = '_blank';
+  wa.rel = 'noopener noreferrer';
+  wa.textContent = 'WhatsApp';
+  p2.append(wa, ' atau ');
+  const mail = document.createElement('a');
+  mail.href = `mailto:${CONFIG.EMAIL}?subject=${encodeURIComponent('Brief Proyek — ' + d.brandName)}&body=${encodeURIComponent(buildWaText(d))}`;
+  mail.textContent = 'email';
+  p2.append(mail, '.');
+
+  statusBox.append(p1, p2);
+  statusBox.focus?.();
+}
+
+/* ---------- Submit ---------- */
+
+function makeBriefId() {
+  const d = new Date();
+  const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+  const rand = Math.random().toString(36).slice(2, 6).toUpperCase();
+  return `NARA-${ymd}-${rand}`;
+}
+
+function setLoading(on) {
+  isSubmitting = on;
+  btnSubmit.disabled = on;
+  btnBack.disabled = on;
+  btnSubmit.classList.toggle('is-loading', on);
+  btnSubmit.querySelector('.btn-label').textContent = on ? 'Mengirim…' : 'Kirim Brief';
+}
+
+async function handleSubmit(e) {
+  e.preventDefault();
+  if (isSubmitting) return;
+
+  // Validasi ulang semua langkah sebelum kirim
+  for (let s = 1; s <= TOTAL_INPUT_STEPS; s++) {
+    if (!validateStep(s, false)) { showStep(s); validateStep(s); return; }
+  }
+
+  const d = getData();
+
+  // Honeypot terisi = bot. Diam-diam abaikan.
+  if (d.company_site) return;
+
+  if (!isConfigured()) {
+    showError('Pengiriman online belum aktif (endpoint Google Sheets belum dikonfigurasi).', d);
+    return;
+  }
+
+  const briefId = makeBriefId();
+  const payload = {
+    briefId,
+    timestamp: new Date().toISOString(),
+    services: d.services.join(', '),
+    projectSummary: d.projectSummary,
+    brandName: d.brandName,
+    brandLink: d.brandLink,
+    budget: d.budget,
+    timeline: d.timeline,
+    fullName: d.fullName,
+    whatsapp: normalizePhone(d.whatsapp),
+    email: d.email,
+    source: location.hostname || 'local',
+    company_site: d.company_site
+  };
+
+  setLoading(true);
+  hideStatus();
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), CONFIG.TIMEOUT_MS);
+
+  try {
+    // text/plain = "simple request" → tanpa CORS preflight, dan respons
+    // Apps Script tetap bisa dibaca sehingga sukses benar-benar terkonfirmasi.
+    const res = await fetch(CONFIG.APPS_SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+      redirect: 'follow',
+      signal: controller.signal
+    });
+
+    let result = null;
+    try { result = await res.json(); } catch (_) { /* bukan JSON */ }
+
+    if (!res.ok || !result || result.success !== true) {
+      const msg = (result && result.message) ? result.message : `Server tidak memberikan konfirmasi (HTTP ${res.status}).`;
+      throw new Error(msg);
+    }
+
+    clearDraft();
+    showSuccess(d, result.briefId || briefId);
+  } catch (err) {
+    const msg = err.name === 'AbortError'
+      ? 'Koneksi terlalu lama. Brief belum terkirim.'
+      : `Brief belum terkirim. ${err.message || 'Periksa koneksi internet Anda.'}`;
+    showError(msg, d);
+  } finally {
+    clearTimeout(timer);
+    setLoading(false);
+  }
+}
+
+function showSuccess(d, briefId) {
+  form.hidden = true;
+  document.getElementById('progress').hidden = true;
+
+  document.getElementById('successName').textContent = d.fullName.split(' ')[0] || d.fullName;
+  document.getElementById('successId').textContent = briefId;
+  document.getElementById('successWa').href =
+    `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(`Halo NARA Creative, saya baru saja mengirim brief proyek dengan ID ${briefId} atas nama ${d.fullName} (${d.brandName}).`)}`;
+
+  introSteps.forEach((li) => { li.classList.remove('is-current'); li.classList.add('is-done'); });
+
+  const view = document.getElementById('successView');
+  view.hidden = false;
+  view.focus({ preventScroll: true });
+  const top = document.getElementById('brief').getBoundingClientRect().top + window.scrollY - 90;
+  window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+}
+
+function resetForNewBrief() {
+  form.reset();
+  ['services', 'projectSummary', 'brandName', 'budget', 'timeline', 'fullName', 'whatsapp', 'email']
+    .forEach((f) => setError(f, ''));
+  updateCounter();
+  document.getElementById('successView').hidden = true;
+  document.getElementById('progress').hidden = false;
+  form.hidden = false;
+  clearDraft();
+  showStep(1);
+}
+
+/* ---------- Misc ---------- */
+
+function updateCounter() {
+  const ta = form.elements.projectSummary;
+  document.getElementById('summaryCount').textContent = ta.value.length;
+}
+
+/* ---------- Events ---------- */
+
+btnNext.addEventListener('click', goNext);
+btnBack.addEventListener('click', goBack);
+form.addEventListener('submit', handleSubmit);
+document.getElementById('btnNewBrief').addEventListener('click', resetForNewBrief);
+
+// Enter di input teks = lanjut (bukan submit prematur). Textarea tetap baris baru.
+form.addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' || e.isComposing) return;
+  const t = e.target;
+  if (t.tagName === 'TEXTAREA' || t.tagName === 'BUTTON') return;
+  if (currentStep < 4) { e.preventDefault(); goNext(); }
 });
 
-// Custom Cursor
-function initCursor() {
-    // Disabled: native OS cursor active per user instruction
-}
-
-// Navigation
-function initNavigation() {
-    const navbar = document.getElementById('navbar');
-    const navToggle = document.getElementById('navToggle');
-    const navMenu = document.getElementById('navMenu');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    // Scroll effect
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-    
-    // Mobile toggle
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-    
-    // Close menu when link clicked
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        });
-    });
-    
-    // Active link on scroll
-    const sections = document.querySelectorAll('section[id]');
-    
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (window.pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
-        
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
-        });
-    });
-}
-
-// Smooth Scroll
-function scrollToSection(selector) {
-    const element = document.querySelector(selector);
-    if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-    }
-}
-
-// Scroll Animations
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        });
-    }, observerOptions);
-    
-    // Observe elements
-    const animateElements = document.querySelectorAll('.service-card, .portfolio-item, .timeline-item, .stat-item');
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'all 0.6s ease-out';
-        observer.observe(el);
-    });
-}
-
-// Stat Counters
-function initStatCounters() {
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let hasAnimated = false;
-    
-    const observerOptions = {
-        threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting && !hasAnimated) {
-                hasAnimated = true;
-                statNumbers.forEach(stat => {
-                    const target = parseInt(stat.getAttribute('data-count'));
-                    let count = 0;
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    
-                    const updateCount = () => {
-                        count += increment;
-                        if (count < target) {
-                            stat.textContent = Math.floor(count);
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            stat.textContent = target;
-                        }
-                    };
-                    
-                    updateCount();
-                });
-            }
-        });
-    }, observerOptions);
-    
-    const statsSection = document.querySelector('.stats');
-    if (statsSection) {
-        observer.observe(statsSection);
-    }
-}
-
-// Service Cards Interaction
-function initServiceCards() {
-    const serviceCards = document.querySelectorAll('.service-card');
-    
-    serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
-            const service = card.getAttribute('data-service');
-            openModal('brief');
-            
-            // Pre-select the service in modal
-            setTimeout(() => {
-                const checkboxes = document.querySelectorAll('#briefModal input[type="checkbox"]');
-                checkboxes.forEach(checkbox => {
-                    if (checkbox.parentElement.textContent.toLowerCase().includes(service)) {
-                        checkbox.checked = true;
-                    }
-                });
-            }, 100);
-        });
-        
-        // Tilt effect
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-}
-
-// Modal System
-function setupModals() {
-    // Close modal when clicking outside
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal')) {
-            closeModal();
-        }
-    });
-    
-    // Close modal with ESC key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeModal();
-        }
-    });
-}
-
-function openModal(modalType) {
-    let modalId;
-    
-    switch(modalType) {
-        case 'brief':
-            modalId = 'briefModal';
-            break;
-        case 'chat':
-            // Open WhatsApp in new tab
-            window.open('https://wa.me/6281281886198?text=Halo%20Nara%20Creative!%20Saya%20ingin%20berdiskusi%20tentang%20proyek.', '_blank');
-            return;
-        case 'caseStudy':
-            // Could open a dedicated case study modal
-            alert('Case study details akan segera tersedia. Untuk informasi lebih lanjut, hubungi kami via WhatsApp!');
-            return;
-        case 'success':
-            modalId = 'successModal';
-            break;
-        default:
-            return;
-    }
-    
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeModal() {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => {
-        modal.classList.remove('active');
-    });
-    document.body.style.overflow = 'auto';
-}
-
-// Form Handlers
-function handleQuickContact(e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const name = form.querySelector('input[type="text"]')?.value || '';
-    const email = form.querySelector('input[type="email"]')?.value || '';
-    const phone = form.querySelector('input[type="tel"]')?.value || '';
-    const message = form.querySelector('textarea')?.value || '';
-    
-    const waMessage = encodeURIComponent(
-        'Halo Nara Creative Studio!\n\n' +
-        '*Nama:* ' + name + '\n' +
-        '*Email:* ' + email + '\n' +
-        '*WhatsApp:* ' + phone + '\n' +
-        '*Pesan/Kebutuhan:* ' + message
-    );
-    
-    window.open('https://wa.me/' + CONFIG.WHATSAPP + '?text=' + waMessage, '_blank');
-    form.reset();
-    showNotification('Pesan siap diteruskan ke WhatsApp Studio Nara Creative.', 'success');
-}
-
-async function handleBriefSubmit(e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    // Show loading state
-    submitBtn.textContent = 'Mengirim Brief...';
-    submitBtn.disabled = true;
-    
-    // Get form data
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData);
-    
-    // Get selected services
-    const services = [];
-    form.querySelectorAll('input[name="service"]:checked').forEach(checkbox => {
-        services.push(checkbox.parentElement.textContent.trim());
-    });
-    data.services = services.join(', ');
-    
-    const briefId = 'BRIEF-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substr(2, 4).toUpperCase();
-    
-    // Prepare data for Google Sheets
-    const briefData = {
-        briefId: briefId,
-        timestamp: new Date().toISOString(),
-        brandName: form.querySelector('input[placeholder*="Brand"]')?.value || form.elements[0]?.value || '',
-        industry: form.querySelector('input[placeholder*="Fashion"]')?.value || '',
-        services: data.services,
-        projectDetails: form.querySelector('textarea')?.value || '',
-        timeline: form.querySelectorAll('select')[0]?.value || '',
-        budget: form.querySelectorAll('select')[1]?.value || '',
-        fullName: form.querySelector('input[type="text"]:not([placeholder*="Brand"]):not([placeholder*="Fashion"])')?.value || '',
-        email: form.querySelector('input[type="email"]')?.value || '',
-        whatsapp: form.querySelector('input[type="tel"]')?.value || '',
-        status: 'Baru'
-    };
-    
-    // Always backup to localStorage
-    try {
-        localStorage.setItem('nara_last_brief', JSON.stringify(briefData));
-    } catch(err) {}
-
-    // Check if Google Apps Script URL is configured
-    if (CONFIG.APPS_SCRIPT_URL && CONFIG.APPS_SCRIPT_URL !== 'YOUR_APPS_SCRIPT_URL' && !CONFIG.APPS_SCRIPT_URL.includes('YOUR_APPS_SCRIPT')) {
-        try {
-            await fetch(CONFIG.APPS_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(briefData)
-            });
-            submitBtn.textContent = originalText;
-            submitBtn.disabled = false;
-            closeModal();
-            openModal('success');
-            form.reset();
-            return;
-        } catch(error) {
-            console.error('Submission error:', error);
-        }
-    }
-
-    // Success state fallback with WhatsApp direct confirmation
-    submitBtn.textContent = originalText;
-    submitBtn.disabled = false;
-    closeModal();
-    openModal('success');
-    
-    const waText = encodeURIComponent('Halo Nara Creative! Saya telah mengirim brief proyek:\n\n' +
-        '*Brand:* ' + (briefData.brandName || '-') + '\n' +
-        '*Layanan:* ' + (briefData.services || '-') + '\n' +
-        '*ID Brief:* ' + briefId);
-    
-    const successModal = document.getElementById('successModal');
-    if (successModal) {
-        const p = successModal.querySelector('p');
-        if (p) {
-            p.innerHTML = 'Brief Anda (<strong>' + briefId + '</strong>) telah dicatat. Tim kami akan menghubungi Anda maksimal dalam 24 jam kerja.<br><br>' +
-                '<a href="https://wa.me/' + CONFIG.WHATSAPP + '?text=' + waText + '" target="_blank" class="btn btn-primary" style="display:inline-block; margin-top:10px; text-decoration:none; padding: 0.65rem 1.25rem; font-size: 0.9rem;">Konfirmasi via WhatsApp</a>';
-        }
-    }
-}
-
-// Notification System
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    notification.style.cssText = `
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        padding: 1rem 1.5rem;
-        background: ${type === 'success' ? '#10b981' : '#FF6B35'};
-        color: white;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 10000;
-        animation: slideUp 0.3s ease-out;
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.style.animation = 'fadeOut 0.3s ease-out';
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
-}
-
-// Parallax Effect
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxElements = document.querySelectorAll('.animated-gradient, .floating-card');
-    
-    parallaxElements.forEach(el => {
-        const speed = el.classList.contains('animated-gradient') ? 0.5 : 0.3;
-        el.style.transform = `translateY(${scrolled * speed}px)`;
-    });
+// Hapus pesan error saat user memperbaiki, dan simpan draft
+form.addEventListener('input', (e) => {
+  const name = e.target.name;
+  if (name === 'projectSummary') updateCounter();
+  if (name && document.getElementById(`err-${name}`)?.textContent) {
+    const errors = RULES[currentStep] ? RULES[currentStep](getData()) : {};
+    if (!errors[name]) setError(name, '');
+  }
+  saveDraft();
+});
+form.addEventListener('change', (e) => {
+  const name = e.target.name;
+  if (['services', 'budget', 'timeline'].includes(name)) {
+    const errors = RULES[currentStep](getData());
+    if (!errors[name]) setError(name, '');
+  }
+  saveDraft();
 });
 
-// Image Lazy Loading (for future use)
-function lazyLoadImages() {
-    const images = document.querySelectorAll('img[data-src]');
-    
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                imageObserver.unobserve(img);
-            }
-        });
-    });
-    
-    images.forEach(img => imageObserver.observe(img));
-}
+document.getElementById('year').textContent = new Date().getFullYear();
+statusBox.setAttribute('tabindex', '-1');
 
-// Smooth scroll for all anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// Typing Effect for Hero (optional enhancement)
-function typeWriter(element, text, speed = 50) {
-    let i = 0;
-    element.textContent = '';
-    
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
-
-// Easter egg: Konami code for fun
-let konamiCode = [];
-const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-
-document.addEventListener('keydown', (e) => {
-    konamiCode.push(e.key);
-    konamiCode = konamiCode.slice(-10);
-    
-    if (konamiCode.join(',') === konamiSequence.join(',')) {
-        showNotification('🎉 Easter egg found! You\'re awesome!', 'success');
-        document.body.style.animation = 'rainbow 5s linear infinite';
-    }
-});
-
-// Add rainbow animation to CSS dynamically
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes rainbow {
-        0% { filter: hue-rotate(0deg); }
-        100% { filter: hue-rotate(360deg); }
-    }
-    @keyframes fadeOut {
-        to { opacity: 0; transform: translateY(-20px); }
-    }
-`;
-document.head.appendChild(style);
-
-// Performance: Debounce scroll events
-function debounce(func, wait = 10) {
-    let timeout;
-    return function(...args) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-}
-
-window.addEventListener('scroll', debounce(() => {
-    // Your scroll-heavy operations here
-}));
-
-// Log for debugging
-console.log('%c🎨 Nara Creative Studio', 'color: #FF6B35; font-size: 24px; font-weight: bold;');
-console.log('%cWebsite by Nara Creative Team', 'color: #b0b0b0; font-size: 12px;');
-console.log('%cInterested in working with us? naracreativestudio.id@gmail.com', 'color: #FF6B35; font-size: 14px;');
+loadDraft();
+if (currentStep === 1) showStep(1, false);

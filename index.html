@@ -1,427 +1,225 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nara Creative Studio — Creative Agency Jakarta</title>
-    <meta name="description" content="Studio kreatif yang membantu brand Anda tumbuh melalui strategi visual, konten, dan digital marketing yang powerful.">
-    <link rel="icon" type="image/png" href="assets/nara-logo-official.png">
-    <link rel="stylesheet" href="styles.css?v=timeline-fixed">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brief Proyek — NARA Creative</title>
+  <meta name="description" content="Form brief singkat untuk calon klien NARA Creative. Ceritakan kebutuhan proyek Anda dalam beberapa menit.">
+  <meta name="theme-color" content="#29271e">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://form.naracreative.site/">
+  <link rel="icon" type="image/png" href="assets/nara-logo-dark.png">
+  <link rel="stylesheet" href="styles.css?v=5.0">
 </head>
 <body>
-    <!-- Native OS cursor used -->
-    
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="#home" class="nav-logo" style="text-decoration: none; color: inherit;">
-                <img src="assets/nara-logo-official.png" alt="Nara Creative Logo" class="nav-logo-img">
-                <span>Nara Creative</span>
-            </a>
-            
-            <button class="nav-toggle" id="navToggle">
-                <span></span>
-                <span></span>
+  <a href="#brief" class="skip-link">Lewati ke form</a>
+
+  <header class="site-header">
+    <a href="https://naracreative.site/" class="brand" aria-label="NARA Creative — kembali ke portfolio">NARA</a>
+    <a href="https://naracreative.site/" class="pill-link">
+      <span>Lihat Portfolio</span>
+      <span class="pill-arrow" aria-hidden="true">↗</span>
+    </a>
+  </header>
+
+  <main class="layout">
+    <!-- Panel kiri: pengantar -->
+    <aside class="intro" aria-labelledby="introTitle">
+      <div class="intro-inner">
+        <div class="intro-logo">
+          <img src="assets/nara-logo-dark.png" alt="NARA Creative">
+        </div>
+
+        <p class="eyebrow eyebrow-light"><span class="eyebrow-dot"></span>Project Brief</p>
+        <h1 id="introTitle" class="intro-title">Ceritakan proyek Anda. <em>Kami siapkan langkahnya.</em></h1>
+        <p class="intro-sub">
+          Isi ringkasan kebutuhan Anda dalam tiga langkah singkat — sekitar dua menit.
+          Tim NARA akan meninjau brief dan menghubungi Anda untuk sesi diskusi.
+        </p>
+
+        <ol class="intro-steps">
+          <li><span>01</span>Kebutuhan</li>
+          <li><span>02</span>Rencana</li>
+          <li><span>03</span>Kontak</li>
+        </ol>
+
+        <div class="intro-contact">
+          <p class="intro-contact-title">Lebih nyaman ngobrol langsung?</p>
+          <a href="https://wa.me/6281281886198" target="_blank" rel="noopener noreferrer">WhatsApp · +62 812-8188-6198</a>
+          <a href="mailto:naracreativestudio.id@gmail.com">naracreativestudio.id@gmail.com</a>
+          <a href="https://instagram.com/naracreativestudio" target="_blank" rel="noopener noreferrer">Instagram · @naracreativestudio</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Panel kanan: form -->
+    <section class="form-area" id="brief" aria-label="Form brief proyek">
+      <div class="form-shell">
+
+        <!-- Progress -->
+        <div class="progress" id="progress" aria-hidden="false">
+          <div class="progress-meta">
+            <span id="progressLabel">Langkah 1 dari 3</span>
+            <span id="progressName">Kebutuhan</span>
+          </div>
+          <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+        </div>
+
+        <form id="briefForm" novalidate>
+          <!-- Honeypot anti-spam: dibiarkan kosong oleh manusia -->
+          <div class="hp" aria-hidden="true">
+            <label for="company_site">Jangan diisi</label>
+            <input type="text" id="company_site" name="company_site" tabindex="-1" autocomplete="off">
+          </div>
+
+          <!-- STEP 1 -->
+          <fieldset class="step is-active" data-step="1">
+            <legend class="step-title">Apa yang Anda butuhkan?</legend>
+            <p class="step-sub">Pilih satu atau beberapa layanan.</p>
+
+            <div class="field">
+              <span class="field-label" id="servicesLabel">Layanan <b aria-hidden="true">*</b></span>
+              <div class="chips" role="group" aria-labelledby="servicesLabel" aria-describedby="err-services">
+                <label class="chip"><input type="checkbox" name="services" value="Foto Produk & Lifestyle"><span>Foto Produk &amp; Lifestyle</span></label>
+                <label class="chip"><input type="checkbox" name="services" value="Video & Campaign"><span>Video &amp; Campaign</span></label>
+                <label class="chip"><input type="checkbox" name="services" value="Konten & Media Sosial"><span>Konten &amp; Media Sosial</span></label>
+                <label class="chip"><input type="checkbox" name="services" value="Brand Strategy & Storytelling"><span>Brand Strategy &amp; Storytelling</span></label>
+                <label class="chip"><input type="checkbox" name="services" value="Identitas Visual & Website"><span>Identitas Visual &amp; Website</span></label>
+                <label class="chip"><input type="checkbox" name="services" value="Digital Marketing & Growth"><span>Digital Marketing &amp; Growth</span></label>
+              </div>
+              <p class="field-error" id="err-services" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <label class="field-label" for="projectSummary">Ceritakan singkat proyeknya <b aria-hidden="true">*</b></label>
+              <textarea id="projectSummary" name="projectSummary" rows="4" maxlength="800"
+                placeholder="Contoh: Butuh foto produk & konten Reels untuk peluncuran varian baru skincare bulan depan."
+                aria-describedby="err-projectSummary hint-projectSummary" required></textarea>
+              <div class="field-foot">
+                <p class="field-error" id="err-projectSummary" role="alert"></p>
+                <span class="field-hint" id="hint-projectSummary"><span id="summaryCount">0</span>/800</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- STEP 2 -->
+          <fieldset class="step" data-step="2" hidden>
+            <legend class="step-title">Rencana proyek</legend>
+            <p class="step-sub">Gambaran brand, anggaran, dan waktu.</p>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="brandName">Nama brand / bisnis <b aria-hidden="true">*</b></label>
+                <input type="text" id="brandName" name="brandName" maxlength="120" autocomplete="organization"
+                  placeholder="Nama brand Anda" aria-describedby="err-brandName" required>
+                <p class="field-error" id="err-brandName" role="alert"></p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="brandLink">Instagram / website <span class="opt">opsional</span></label>
+                <input type="text" id="brandLink" name="brandLink" maxlength="200"
+                  placeholder="@brand atau https://…">
+              </div>
+            </div>
+
+            <div class="field">
+              <span class="field-label" id="budgetLabel">Perkiraan anggaran <b aria-hidden="true">*</b></span>
+              <div class="chips" role="radiogroup" aria-labelledby="budgetLabel" aria-describedby="err-budget">
+                <label class="chip"><input type="radio" name="budget" value="< Rp5 juta"><span>&lt; Rp5 juta</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Rp5–15 juta"><span>Rp5–15 juta</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Rp15–50 juta"><span>Rp15–50 juta</span></label>
+                <label class="chip"><input type="radio" name="budget" value="> Rp50 juta"><span>&gt; Rp50 juta</span></label>
+                <label class="chip"><input type="radio" name="budget" value="Belum tahu / ingin konsultasi"><span>Belum tahu</span></label>
+              </div>
+              <p class="field-error" id="err-budget" role="alert"></p>
+            </div>
+
+            <div class="field">
+              <span class="field-label" id="timelineLabel">Kapan ingin mulai? <b aria-hidden="true">*</b></span>
+              <div class="chips" role="radiogroup" aria-labelledby="timelineLabel" aria-describedby="err-timeline">
+                <label class="chip"><input type="radio" name="timeline" value="Secepatnya (< 2 minggu)"><span>Secepatnya</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="Dalam 1 bulan"><span>Dalam 1 bulan</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="1–3 bulan lagi"><span>1–3 bulan lagi</span></label>
+                <label class="chip"><input type="radio" name="timeline" value="Fleksibel"><span>Fleksibel</span></label>
+              </div>
+              <p class="field-error" id="err-timeline" role="alert"></p>
+            </div>
+          </fieldset>
+
+          <!-- STEP 3 -->
+          <fieldset class="step" data-step="3" hidden>
+            <legend class="step-title">Bagaimana kami menghubungi Anda?</legend>
+            <p class="step-sub">Data hanya dipakai untuk menindaklanjuti brief ini.</p>
+
+            <div class="field">
+              <label class="field-label" for="fullName">Nama lengkap <b aria-hidden="true">*</b></label>
+              <input type="text" id="fullName" name="fullName" maxlength="100" autocomplete="name"
+                placeholder="Nama Anda" aria-describedby="err-fullName" required>
+              <p class="field-error" id="err-fullName" role="alert"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="field-label" for="whatsapp">Nomor WhatsApp <b aria-hidden="true">*</b></label>
+                <input type="tel" id="whatsapp" name="whatsapp" maxlength="20" autocomplete="tel" inputmode="tel"
+                  placeholder="08xx atau +62…" aria-describedby="err-whatsapp" required>
+                <p class="field-error" id="err-whatsapp" role="alert"></p>
+              </div>
+              <div class="field">
+                <label class="field-label" for="email">Email <b aria-hidden="true">*</b></label>
+                <input type="email" id="email" name="email" maxlength="120" autocomplete="email"
+                  placeholder="nama@email.com" aria-describedby="err-email" required>
+                <p class="field-error" id="err-email" role="alert"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- REVIEW -->
+          <section class="step review" data-step="4" hidden aria-labelledby="reviewTitle">
+            <h2 class="step-title" id="reviewTitle">Rekap brief Anda</h2>
+            <p class="step-sub">Periksa sekali lagi sebelum dikirim.</p>
+            <div id="reviewList" class="review-list"></div>
+            <p class="form-note">Dengan mengirim, Anda setuju dihubungi tim NARA terkait brief ini. Brief disimpan sebagai baris baru di sistem kami.</p>
+          </section>
+
+          <!-- Status pengiriman -->
+          <div class="status" id="formStatus" role="status" aria-live="polite" hidden></div>
+
+          <!-- Navigasi -->
+          <div class="form-nav" id="formNav">
+            <button type="button" class="btn btn-ghost" id="btnBack" hidden>← Kembali</button>
+            <button type="button" class="btn btn-solid" id="btnNext">Lanjut</button>
+            <button type="submit" class="btn btn-solid" id="btnSubmit" hidden>
+              <span class="btn-label">Kirim Brief</span>
+              <span class="spinner" aria-hidden="true"></span>
             </button>
-            
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#services" class="nav-link">Layanan</a></li>
-                <li><a href="#work" class="nav-link">Portfolio</a></li>
-                <li><a href="#contact" class="nav-link nav-cta">Hubungi Kami</a></li>
-            </ul>
-        </div>
-    </nav>
+          </div>
+        </form>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1 class="hero-title">
-                    <span class="title-word">Cerita</span>
-                    <span class="title-word">brand</span>
-                    <span class="title-word">Anda</span>
-                    <span class="title-word highlight">dimulai di sini</span>
-                </h1>
-                <p class="hero-subtitle">Kami mengubah visi menjadi strategi kreatif yang menggerakkan hasil nyata. Foto produk yang memukau, konten viral, branding yang memorable.</p>
-                <div class="hero-cta">
-                    <button class="btn btn-primary" onclick="scrollToSection('#contact')">Mulai Proyek</button>
-                    <button class="btn btn-secondary" onclick="scrollToSection('#services')">Lihat Layanan</button>
-                </div>
-            </div>
-            
-            <div class="hero-visual">
-                <div class="floating-card card-1">
-                    <span>Video Campaign</span>
-                </div>
-                <div class="floating-card card-2">
-                    <span>Product Photo</span>
-                </div>
-                <div class="floating-card card-3">
-                    <span>Brand Identity</span>
-                </div>
-                <div class="animated-gradient"></div>
-            </div>
+        <!-- SUCCESS -->
+        <div class="success" id="successView" hidden tabindex="-1" aria-labelledby="successTitle">
+          <p class="eyebrow eyebrow-dark"><span class="eyebrow-dot"></span>Brief diterima</p>
+          <h2 id="successTitle" class="success-title">Terima kasih, <em id="successName">—</em>.</h2>
+          <p class="success-sub">Brief Anda sudah tersimpan. Tim NARA akan meninjau dan menghubungi Anda dalam 1×24 jam kerja.</p>
+          <div class="success-id">
+            <span>ID Brief</span>
+            <strong id="successId">—</strong>
+          </div>
+          <div class="success-actions">
+            <a class="btn btn-solid" id="successWa" href="#" target="_blank" rel="noopener noreferrer">Konfirmasi via WhatsApp</a>
+            <a class="btn btn-ghost" href="https://naracreative.site/">Kembali ke Portfolio</a>
+          </div>
+          <button type="button" class="link-btn" id="btnNewBrief">Isi brief baru</button>
         </div>
 
-        <div class="scroll-indicator">
-            <span>Scroll</span>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-        </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="section-header">
-            <span class="section-tag">Apa yang kami tawarkan</span>
-            <h2 class="section-title">Layanan Lengkap untuk Brand Anda</h2>
-            <p class="section-subtitle">Dari fotografi produk hingga strategi digital, kami siap membawa brand Anda ke level berikutnya.</p>
-        </div>
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> NARA Creative</p>
+    <p><a href="https://naracreative.site/">naracreative.site</a></p>
+  </footer>
 
-        <div class="services-grid">
-            <div class="service-card" data-service="photo">
-                <div class="service-badge">01</div>
-                <h3>Foto Produk & Lifestyle</h3>
-                <p>AI Product Photography, foto e-commerce berkualitas tinggi, visual katalog, lookbook fashion, dan fotografi makanan yang menggugah selera.</p>
-                <span class="arrow">→</span>
-            </div>
-
-            <div class="service-card" data-service="video">
-                <div class="service-badge">02</div>
-                <h3>Video & Campaign</h3>
-                <p>Video komersial profesional, kampanye peluncuran produk, konten viral TikTok dan Reels yang menggerakkan engagement tinggi.</p>
-                <span class="arrow">→</span>
-            </div>
-
-            <div class="service-card" data-service="content">
-                <div class="service-badge">03</div>
-                <h3>Konten & Media Sosial</h3>
-                <p>Strategi konten, desain feed Instagram yang aesthetic, copywriting yang powerful, dan pengelolaan media sosial end-to-end.</p>
-                <span class="arrow">→</span>
-            </div>
-
-            <div class="service-card" data-service="brand">
-                <div class="service-badge">04</div>
-                <h3>Brand Strategy</h3>
-                <p>Positioning brand yang kuat, brand story yang compelling, messaging strategy, dan visual identity yang memorable.</p>
-                <span class="arrow">→</span>
-            </div>
-
-            <div class="service-card" data-service="design">
-                <div class="service-badge">05</div>
-                <h3>Identitas Visual & Web</h3>
-                <p>Logo design, brand guidelines lengkap, desain kemasan premium, dan website yang convert. Semuanya dirancang untuk hasil maksimal.</p>
-                <span class="arrow">→</span>
-            </div>
-
-            <div class="service-card" data-service="marketing">
-                <div class="service-badge">06</div>
-                <h3>Digital Marketing</h3>
-                <p>Strategi Meta Ads, TikTok Ads, Google Ads, dan Marketplace Ads yang terukur. Landing page yang convert, analitik yang detail.</p>
-                <span class="arrow">→</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process">
-        <div class="section-header">
-            <span class="section-tag">Cara kami bekerja</span>
-            <h2 class="section-title">Proses yang Jelas & Transparan</h2>
-        </div>
-
-        <div class="process-timeline">
-            <div class="timeline-item" data-step="1">
-                <div class="timeline-dot">1</div>
-                <div class="timeline-content">
-                    <h3>Konsultasi & Discovery</h3>
-                    <p>Kami mendengarkan cerita brand Anda. Apa tujuannya? Siapa target audience? Apa tantangan yang dihadapi? Dari sini strategi dimulai.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-step="2">
-                <div class="timeline-dot">2</div>
-                <div class="timeline-content">
-                    <h3>Strategi & Planning</h3>
-                    <p>Tim kami merancang roadmap kreatif yang aligned dengan goal bisnis Anda. Konsep, timeline, dan deliverables jelas dari awal.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-step="3">
-                <div class="timeline-dot">3</div>
-                <div class="timeline-content">
-                    <h3>Eksekusi & Produksi</h3>
-                    <p>Fase produksi dimulai. Foto shooting, video production, design iterations. Kami update Anda di setiap milestone penting.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-step="4">
-                <div class="timeline-dot">4</div>
-                <div class="timeline-content">
-                    <h3>Review & Revisi</h3>
-                    <p>Hasil diperlihatkan kepada Anda. Feedback Anda kami incorporasi untuk memastikan hasil 100% sesuai ekspektasi.</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" data-step="5">
-                <div class="timeline-dot">5</div>
-                <div class="timeline-content">
-                    <h3>Launch & Support</h3>
-                    <p>Siap untuk launch? Kami membantu deployment, monitoring awal, dan optimisasi berdasarkan performance data real-time.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section class="portfolio" id="work">
-        <div class="section-header">
-            <span class="section-tag">Hasil kerja kami</span>
-            <h2 class="section-title">Lihat yang Sudah Kami Ciptakan</h2>
-        </div>
-
-        <div class="portfolio-grid">
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <img src="assets/portfolio/1.png" alt="Campaign E-Commerce Visual">
-                </div>
-                <h3>Campaign: Peluncuran Produk E-Commerce</h3>
-                <p>Strategi lengkap dari branding hingga ad campaigns. Hasil: 150% ROI dalam 3 bulan.</p>
-                <span class="portfolio-tag">Video • Ads • Design</span>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <img src="assets/portfolio/ChatGPT Image 14 Jul 2026, 20.30.24.png" alt="Viral Video Campaign">
-                </div>
-                <h3>Content Series: Viral TikTok Campaign</h3>
-                <p>Series konten yang mencapai 2.5M views dan 250K engagement. Authentic storytelling yang resonate.</p>
-                <span class="portfolio-tag">Konten • Editing • Strategy</span>
-            </div>
-
-            <div class="portfolio-item">
-                <div class="portfolio-image">
-                    <img src="assets/portfolio/10.png" alt="Brand Identity & Space">
-                </div>
-                <h3>Brand Identity: Fashion Brand</h3>
-                <p>Full branding package dari logo hingga brand guidelines. Hasil: visual identity yang distinctive dan marketable.</p>
-                <span class="portfolio-tag">Design • Branding • Guidelines</span>
-            </div>
-        </div>
-
-        <div class="portfolio-cta">
-            <p>Penasaran dengan case study lengkap?</p>
-            <button class="btn btn-primary" onclick="openModal('caseStudy')">Lihat Detail Case Study</button>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="stat-item">
-            <h3 class="stat-number" data-count="50">0</h3>
-            <p class="stat-label">Proyek Selesai</p>
-        </div>
-        <div class="stat-item">
-            <h3 class="stat-number" data-count="30">0</h3>
-            <p class="stat-label">Brand Dipercaya</p>
-        </div>
-        <div class="stat-item">
-            <h3 class="stat-number" data-count="5">0</h3>
-            <p class="stat-label">Tahun Pengalaman</p>
-        </div>
-        <div class="stat-item">
-            <h3 class="stat-number" data-count="98">0</h3>
-            <p class="stat-label">% Klien Puas</p>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2 class="contact-title">Mari Kita Ciptakan Sesuatu yang Luar Biasa</h2>
-                <p class="contact-subtitle">Siap untuk membawa brand Anda ke level berikutnya? Hubungi kami hari ini.</p>
-                
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                        </svg>
-                        <div>
-                            <h4>Email</h4>
-                            <a href="mailto:naracreativestudio.id@gmail.com">naracreativestudio.id@gmail.com</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
-                        </svg>
-                        <div>
-                            <h4>WhatsApp</h4>
-                            <a href="https://wa.me/6281281886198" target="_blank">+62 812-8188-6198</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <svg class="contact-icon" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                        <div>
-                            <h4>Instagram</h4>
-                            <a href="https://instagram.com/naracreativestudio" target="_blank">@naracreativestudio</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-buttons">
-                    <button class="btn btn-primary" onclick="openModal('brief')">Mulai Brief Proyek</button>
-                    <button class="btn btn-secondary" onclick="openModal('chat')">Chat Sekarang</button>
-                </div>
-            </div>
-
-            <div class="contact-form">
-                <form id="quickContactForm" onsubmit="handleQuickContact(event)">
-                    <div class="form-group">
-                        <input type="text" placeholder="Nama Anda" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <input type="tel" placeholder="WhatsApp" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Ceritakan proyek Anda..." rows="5" class="form-input"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal for Brief -->
-    <div class="modal" id="briefModal">
-        <div class="modal-content modal-large">
-            <button class="modal-close" onclick="closeModal()">✕</button>
-            <h2>Ceritakan Proyekmu</h2>
-            
-            <form id="briefForm" onsubmit="handleBriefSubmit(event)">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Nama Brand/Bisnis</label>
-                        <input type="text" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label>Bidang Industri</label>
-                        <input type="text" placeholder="Contoh: Fashion, F&B, Tech" class="form-input">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Layanan yang Anda Butuhkan</label>
-                    <div class="checkbox-group">
-                        <label class="checkbox"><input type="checkbox" name="service"> Foto Produk</label>
-                        <label class="checkbox"><input type="checkbox" name="service"> Video Campaign</label>
-                        <label class="checkbox"><input type="checkbox" name="service"> Konten Media Sosial</label>
-                        <label class="checkbox"><input type="checkbox" name="service"> Brand Strategy</label>
-                        <label class="checkbox"><input type="checkbox" name="service"> Design & Web</label>
-                        <label class="checkbox"><input type="checkbox" name="service"> Digital Marketing</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Deskripsi Proyek</label>
-                    <textarea placeholder="Jelaskan detail proyek Anda..." required class="form-input"></textarea>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Timeline Dimulai</label>
-                        <select required class="form-input">
-                            <option>Pilih timeline</option>
-                            <option>Segera (1-2 minggu)</option>
-                            <option>1 bulan</option>
-                            <option>1-3 bulan</option>
-                            <option>Fleksibel</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Kisaran Budget</label>
-                        <select required class="form-input">
-                            <option>Pilih budget</option>
-                            <option>< 10 juta</option>
-                            <option>10 - 30 juta</option>
-                            <option>30 - 50 juta</option>
-                            <option>> 50 juta</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label>Nama Lengkap</label>
-                        <input type="text" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" required class="form-input">
-                    </div>
-                    <div class="form-group">
-                        <label>WhatsApp</label>
-                        <input type="tel" required class="form-input">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-large">Kirim Brief Saya</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content modal-small">
-            <div class="success-icon">✓</div>
-            <h2>Terima Kasih!</h2>
-            <p>Brief Anda sudah kami terima. Tim Nara Creative akan menghubungi Anda dalam 24 jam.</p>
-            <button class="btn btn-primary" onclick="closeModal()">Tutup</button>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-                    <img src="assets/nara-logo-official.png" alt="Nara Creative" style="height: 30px; width: auto;">
-                    <h3 style="margin: 0;">Nara Creative Studio</h3>
-                </div>
-                <p>Mengubah cerita brand menjadi visual yang powerful dan strategi yang menggerakkan hasil.</p>
-            </div>
-            <div class="footer-links">
-                <a href="#home">Home</a>
-                <a href="#services">Layanan</a>
-                <a href="#work">Portfolio</a>
-                <a href="#contact">Kontak</a>
-            </div>
-            <div class="footer-social">
-                <a href="https://instagram.com/naracreativestudio" target="_blank" title="Instagram">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.015-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.322a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Nara Creative Studio. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="app.js?v=original-dark"></script>
+  <script src="app.js?v=5.0"></script>
 </body>
 </html>
