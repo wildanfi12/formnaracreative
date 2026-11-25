@@ -1,8 +1,8 @@
 /* ==========================================================================
    NARA Creative - Interactive Project Brief Form
-   - 4 kapabilitas NARA dengan accordion output spesifik
-   - Live Brief Dossier real-time di panel pengantar
-   - Stepper interaktif, template cepat, auto-save (localStorage)
+   - Menu kapabilitas kiri ("Apa yang Bisa Kami Kerjakan") sinkron dua arah
+   - 5 pilar layanan dengan accordion output spesifik & Building Website
+   - Ringkasan brief real-time, template cepat, auto-save (localStorage)
    - Sukses HANYA ditampilkan jika backend Apps Script mengonfirmasi
    ========================================================================== */
 
@@ -12,7 +12,7 @@ const CONFIG = {
   APPS_SCRIPT_URL: 'YOUR_APPS_SCRIPT_WEB_APP_URL',
   WHATSAPP: '6281281886198',
   EMAIL: 'naracreativestudio.id@gmail.com',
-  STORAGE_KEY: 'nara_brief_v6',
+  STORAGE_KEY: 'nara_brief_v7',
   TIMEOUT_MS: 20000
 };
 
@@ -32,6 +32,7 @@ const statusBox = document.getElementById('formStatus');
 const progressBar = document.getElementById('progressBar');
 const stepperItems = Array.from(document.querySelectorAll('.stepper-item'));
 const capCards = Array.from(document.querySelectorAll('.cap-card'));
+const menuItems = Array.from(document.querySelectorAll('.menu-cap-item'));
 
 let currentStep = 1;
 let isSubmitting = false;
@@ -67,12 +68,42 @@ function getData() {
   };
 }
 
-/* ---------- Capability Cards & Accordion ---------- */
+/* ---------- Capability Cards & Left Menu Bidirectional Sync ---------- */
 
 function setCardOpen(card, open) {
   card.classList.toggle('is-open', open);
   const btn = card.querySelector('.cap-expand-btn');
   if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function setMenuOpen(item, open) {
+  item.classList.toggle('is-open', open);
+  const btn = item.querySelector('.menu-cap-trigger');
+  if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function syncMenuItemUI(capId) {
+  const card = form.querySelector(`.cap-card[data-cap="${capId}"]`);
+  const menuItem = document.querySelector(`.menu-cap-item[data-menu-cap="${capId}"]`);
+  if (!card || !menuItem) return;
+
+  const isSelected = Boolean(card.querySelector('input[name="services"]')?.checked);
+  menuItem.classList.toggle('is-selected', isSelected);
+
+  const pickedBadge = menuItem.querySelector('.menu-cap-picked');
+  if (pickedBadge) pickedBadge.hidden = !isSelected;
+
+  const pickBtn = menuItem.querySelector('.menu-cap-pick');
+  if (pickBtn) {
+    pickBtn.textContent = isSelected ? '✓ Terpilih di Brief' : '+ Masukkan ke Brief';
+    pickBtn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+  }
+}
+
+function syncAllMenuItems() {
+  menuItems.forEach((item) => {
+    syncMenuItemUI(item.dataset.menuCap);
+  });
 }
 
 function syncCapCardUI(card) {
@@ -87,6 +118,7 @@ function syncCapCardUI(card) {
   if (badge) {
     badge.textContent = checkedCount > 0 ? `${checkedCount} output` : '';
   }
+  syncMenuItemUI(capId);
 }
 
 function syncAllCapCards(autoOpenSelected = false) {
@@ -99,45 +131,41 @@ function syncAllCapCards(autoOpenSelected = false) {
   });
 }
 
-/* ---------- Live Brief Dossier ---------- */
-
-function renderTagList(container, items, emptyText) {
-  container.textContent = '';
-  if (!items.length) {
-    if (emptyText) {
-      const span = document.createElement('span');
-      span.className = 'dossier-empty';
-      span.textContent = emptyText;
-      container.appendChild(span);
-    }
-    return;
+function applyServiceSelection(card, checked) {
+  const parentCb = card.querySelector('input[name="services"]');
+  if (!parentCb) return;
+  parentCb.checked = checked;
+  if (checked) {
+    setCardOpen(card, true);
+  } else {
+    card.querySelectorAll('input[name="deliverables"]').forEach((cb) => {
+      cb.checked = false;
+    });
+    setCardOpen(card, false);
   }
-  items.forEach((label) => {
-    const pill = document.createElement('span');
-    pill.className = 'dossier-tag-pill';
-    pill.textContent = label;
-    container.appendChild(pill);
-  });
+  syncCapCardUI(card);
 }
+
+/* ---------- Live Brief Summary Strip ---------- */
 
 function getEstimateText(d) {
   if (!d.services.length) {
     return 'Estimasi alur kerja akan menyesuaikan pilihan layanan Anda.';
   }
   const hasWebOrBrand =
-    d.services.includes('Website Development') ||
-    d.services.includes('Visual Branding & Strategy');
+    d.services.includes('Building Website') ||
+    d.services.includes('Desain Grafis & Branding');
   if (hasWebOrBrand) {
-    return 'Proyek branding atau website umumnya membutuhkan 5-10 hari kerja sesuai cakupan.';
+    return 'Proyek website atau branding umumnya membutuhkan 5-10 hari kerja sesuai cakupan.';
   }
   const hasLongProd =
     d.services.length > 1 ||
     d.deliverables.includes('Video Komersial & Campaign') ||
-    d.deliverables.includes('Motion Graphics & Editing');
+    d.deliverables.includes('Motion Graphics & Bumper');
   if (hasLongProd) {
-    return 'Paket video komersial, motion graphics, atau multi-layanan umumnya 5-10 hari kerja.';
+    return 'Paket video komersial atau multi-layanan umumnya membutuhkan 5-10 hari kerja.';
   }
-  return 'Produksi short-form Reels, foto produk, dan materi iklan umumnya 24-48 jam setelah materi siap.';
+  return 'Editing video singkat, desain satuan, dan foto produk umumnya 24-48 jam setelah materi siap.';
 }
 
 function updateDossier() {
@@ -154,16 +182,16 @@ function updateDossier() {
     brandEl.classList.toggle('is-placeholder', !d.brandName);
   }
 
-  const pillarsEl = document.getElementById('livePillars');
-  if (pillarsEl) {
-    renderTagList(pillarsEl, d.services, 'Belum ada layanan dipilih');
-  }
-
-  const delivRow = document.getElementById('liveDeliverablesRow');
-  const delivEl = document.getElementById('liveDeliverables');
-  if (delivRow && delivEl) {
-    delivRow.hidden = d.deliverables.length === 0;
-    renderTagList(delivEl, d.deliverables, '');
+  const countEl = document.getElementById('liveCount');
+  if (countEl) {
+    if (!d.services.length) {
+      countEl.textContent = 'Belum dipilih';
+      countEl.classList.add('is-placeholder');
+    } else {
+      const delivSuffix = d.deliverables.length ? ` (${d.deliverables.length} output)` : '';
+      countEl.textContent = `${d.services.length} layanan${delivSuffix}`;
+      countEl.classList.remove('is-placeholder');
+    }
   }
 
   const budgetEl = document.getElementById('liveBudget');
@@ -220,7 +248,6 @@ function loadDraft() {
     syncAllCapCards(true);
     updateCounter();
 
-    // Kembali ke langkah terakhir hanya jika langkah sebelumnya valid
     const target = Math.min(Math.max(parseInt(step, 10) || 1, 1), 4);
     for (let s = 1; s < target; s++) {
       if (!validateStep(s, false)) {
@@ -253,7 +280,7 @@ function setError(fieldName, message) {
 
 const RULES = {
   1: (d) => ({
-    services: d.services.length ? '' : 'Pilih minimal satu pilar layanan.',
+    services: d.services.length ? '' : 'Pilih minimal satu layanan.',
     projectSummary: d.projectSummary.length >= 15 ? '' :
       (d.projectSummary ? 'Ceritakan sedikit lebih detail (minimal 15 karakter).' : 'Ceritakan singkat kebutuhan proyek Anda.')
   }),
@@ -362,7 +389,7 @@ function goToStep(targetStep) {
 function renderReview() {
   const d = getData();
   const rows = [
-    ['Pilar Layanan', d.services.join(', '), 1]
+    ['Layanan', d.services.join(', '), 1]
   ];
   if (d.deliverables.length) {
     rows.push(['Output Spesifik', d.deliverables.join(', '), 1]);
@@ -482,7 +509,6 @@ async function handleSubmit(e) {
 
   const d = getData();
 
-  // Honeypot terisi = bot. Diam-diam abaikan.
   if (d.company_site) return;
 
   if (!isConfigured()) {
@@ -515,7 +541,6 @@ async function handleSubmit(e) {
   const timer = setTimeout(() => controller.abort(), CONFIG.TIMEOUT_MS);
 
   try {
-    // text/plain = CORS simple request sehingga respons Apps Script dapat dibaca
     const res = await fetch(CONFIG.APPS_SCRIPT_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -576,6 +601,7 @@ function resetForNewBrief() {
     setCardOpen(card, false);
     syncCapCardUI(card);
   });
+  menuItems.forEach((item) => setMenuOpen(item, false));
   updateCounter();
   document.getElementById('successView').hidden = true;
   document.getElementById('progress').hidden = false;
@@ -606,7 +632,44 @@ document.querySelectorAll('.stepper-btn').forEach((btn) => {
   });
 });
 
-// Capability accordion toggle buttons
+// Left Menu Accordion Toggle (single-open untuk menjaga tinggi panel ringkas)
+menuItems.forEach((item) => {
+  const trigger = item.querySelector('.menu-cap-trigger');
+  if (trigger) {
+    trigger.addEventListener('click', () => {
+      const willOpen = !item.classList.contains('is-open');
+      menuItems.forEach((other) => {
+        setMenuOpen(other, other === item ? willOpen : false);
+      });
+    });
+  }
+
+  const pickBtn = item.querySelector('.menu-cap-pick');
+  if (pickBtn) {
+    pickBtn.addEventListener('click', () => {
+      const capId = pickBtn.dataset.pickCap;
+      const card = form.querySelector(`.cap-card[data-cap="${capId}"]`);
+      if (!card) return;
+      const parentCb = card.querySelector('input[name="services"]');
+      const nextState = !(parentCb && parentCb.checked);
+      applyServiceSelection(card, nextState);
+
+      const errors = RULES[1](getData());
+      if (!errors.services) setError('services', '');
+
+      if (currentStep !== 1) {
+        showStep(1, false);
+      }
+      if (nextState && window.innerWidth <= 960) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      updateDossier();
+      saveDraft();
+    });
+  }
+});
+
+// Right Capability Card Accordion Toggle
 capCards.forEach((card) => {
   const expandBtn = card.querySelector('.cap-expand-btn');
   if (expandBtn) {
@@ -616,7 +679,7 @@ capCards.forEach((card) => {
   }
 });
 
-// Capability parent & child sync
+// Right Form Checkboxes / Radios Sync
 form.addEventListener('change', (e) => {
   const target = e.target;
   const name = target.name;
@@ -624,15 +687,7 @@ form.addEventListener('change', (e) => {
   if (name === 'services') {
     const card = target.closest('.cap-card');
     if (card) {
-      if (target.checked) {
-        setCardOpen(card, true);
-      } else {
-        card.querySelectorAll('input[name="deliverables"]').forEach((cb) => {
-          cb.checked = false;
-        });
-        setCardOpen(card, false);
-      }
-      syncCapCardUI(card);
+      applyServiceSelection(card, target.checked);
     }
     const errors = RULES[1](getData());
     if (!errors.services) setError('services', '');
@@ -708,6 +763,9 @@ statusBox.setAttribute('tabindex', '-1');
 loadDraft();
 if (currentStep === 1) {
   syncAllCapCards(false);
+  syncAllMenuItems();
   showStep(1, false);
+} else {
+  syncAllMenuItems();
 }
 updateDossier();

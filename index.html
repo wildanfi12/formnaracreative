@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brief Proyek | NARA Creative</title>
-  <meta name="description" content="Form brief interaktif NARA Creative. Lihat kapabilitas layanan kami dan kirim ringkasan kebutuhan proyek Anda dalam beberapa menit.">
+  <meta name="description" content="Form brief interaktif NARA Creative. Lihat layanan editing video, desain grafis, building website (portfolio & perusahaan), foto produk AI, hingga digital marketing.">
   <meta name="theme-color" content="#29271e">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://form.naracreative.site/">
   <link rel="icon" type="image/png" href="assets/nara-logo-dark.png">
-  <link rel="stylesheet" href="styles.css?v=6.1">
+  <link rel="stylesheet" href="styles.css?v=7.0">
 </head>
 <body>
   <a href="#brief" class="skip-link">Lewati ke form</a>
@@ -26,55 +26,129 @@
   </header>
 
   <main class="layout">
-    <!-- Panel kiri: Pengantar & Live Brief Dossier -->
+    <!-- Panel kiri: Pengantar, Menu Kapabilitas Interaktif & Ringkasan Brief -->
     <aside class="intro" aria-labelledby="introTitle">
       <div class="intro-inner">
         <div class="intro-top">
           <div class="intro-logo">
-            <img src="assets/nara-logo-dark.png" alt="NARA Creative" width="150" height="60" fetchpriority="high">
+            <img src="assets/nara-logo-dark.png" alt="NARA Creative" width="148" height="59" fetchpriority="high">
           </div>
           <h1 id="introTitle" class="intro-title">Ceritakan proyek Anda. <em>Kami susun eksekusinya.</em></h1>
           <p class="intro-sub">
-            Pilih kapabilitas yang relevan dengan target bisnis Anda, lalu isi ringkasan singkat dalam tiga langkah.
+            Klik layanan kami di bawah untuk melihat cakupan kerja dan masukkan langsung ke brief Anda.
           </p>
         </div>
 
-        <!-- Live Dossier Preview (berubah real-time saat klien memilih) -->
-        <div class="dossier" aria-live="polite" aria-label="Pratinjau ringkasan brief secara langsung">
-          <div class="dossier-head">
-            <span class="dossier-tag">Live Brief Dossier</span>
-            <span class="dossier-step-pill" id="dossierStep">01 / 03</span>
+        <!-- Menu Interaktif: Apa yang Bisa Kami Kerjakan -->
+        <div class="cap-menu" aria-label="Apa yang Bisa Kami Kerjakan">
+          <div class="cap-menu-head">
+            <span class="cap-menu-label">Apa yang Bisa Kami Kerjakan</span>
+            <span class="cap-menu-hint">Klik untuk detail</span>
           </div>
 
-          <div class="dossier-row">
-            <span class="dossier-label">Brand</span>
-            <span class="dossier-value is-placeholder" id="liveBrand">Belum diisi</span>
-          </div>
+          <ul class="cap-menu-list">
+            <li class="menu-cap-item" data-menu-cap="video-editing">
+              <button type="button" class="menu-cap-trigger" aria-expanded="false" aria-controls="menu-cap-body-1">
+                <span class="menu-cap-index">01</span>
+                <span class="menu-cap-title">Editing Video &amp; Motion</span>
+                <span class="menu-cap-picked" hidden>Terpilih</span>
+                <span class="menu-cap-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="menu-cap-body" id="menu-cap-body-1">
+                <div class="menu-cap-body-inner">
+                  <p>Video komersial, Reels &amp; TikTok, AI UGC video, motion graphics, hingga post-production.</p>
+                  <button type="button" class="menu-cap-pick" data-pick-cap="video-editing">+ Masukkan ke Brief</button>
+                </div>
+              </div>
+            </li>
 
-          <div class="dossier-row">
-            <span class="dossier-label">Kapabilitas</span>
-            <div class="dossier-tags" id="livePillars">
-              <span class="dossier-empty">Belum ada layanan dipilih</span>
+            <li class="menu-cap-item" data-menu-cap="graphic-branding">
+              <button type="button" class="menu-cap-trigger" aria-expanded="false" aria-controls="menu-cap-body-2">
+                <span class="menu-cap-index">02</span>
+                <span class="menu-cap-title">Desain Grafis &amp; Branding</span>
+                <span class="menu-cap-picked" hidden>Terpilih</span>
+                <span class="menu-cap-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="menu-cap-body" id="menu-cap-body-2">
+                <div class="menu-cap-body-inner">
+                  <p>Desain grafis promosi, feed media sosial, logo, brand identity, panduan brand, dan kemasan.</p>
+                  <button type="button" class="menu-cap-pick" data-pick-cap="graphic-branding">+ Masukkan ke Brief</button>
+                </div>
+              </div>
+            </li>
+
+            <li class="menu-cap-item" data-menu-cap="web-building">
+              <button type="button" class="menu-cap-trigger" aria-expanded="false" aria-controls="menu-cap-body-3">
+                <span class="menu-cap-index">03</span>
+                <span class="menu-cap-title">Building Website</span>
+                <span class="menu-cap-picked" hidden>Terpilih</span>
+                <span class="menu-cap-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="menu-cap-body" id="menu-cap-body-3">
+                <div class="menu-cap-body-inner">
+                  <p>Pembuatan website portfolio, website perusahaan (company profile), landing page, katalog online, hingga siap publish dengan domain sendiri.</p>
+                  <button type="button" class="menu-cap-pick" data-pick-cap="web-building">+ Masukkan ke Brief</button>
+                </div>
+              </div>
+            </li>
+
+            <li class="menu-cap-item" data-menu-cap="photo-ai">
+              <button type="button" class="menu-cap-trigger" aria-expanded="false" aria-controls="menu-cap-body-4">
+                <span class="menu-cap-index">04</span>
+                <span class="menu-cap-title">Foto Produk &amp; AI Visual</span>
+                <span class="menu-cap-picked" hidden>Terpilih</span>
+                <span class="menu-cap-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="menu-cap-body" id="menu-cap-body-4">
+                <div class="menu-cap-body-inner">
+                  <p>Foto produk HD, lifestyle, AI product photography, dan aset visual kampanye.</p>
+                  <button type="button" class="menu-cap-pick" data-pick-cap="photo-ai">+ Masukkan ke Brief</button>
+                </div>
+              </div>
+            </li>
+
+            <li class="menu-cap-item" data-menu-cap="digital-marketing">
+              <button type="button" class="menu-cap-trigger" aria-expanded="false" aria-controls="menu-cap-body-5">
+                <span class="menu-cap-index">05</span>
+                <span class="menu-cap-title">Konten &amp; Digital Marketing</span>
+                <span class="menu-cap-picked" hidden>Terpilih</span>
+                <span class="menu-cap-plus" aria-hidden="true">+</span>
+              </button>
+              <div class="menu-cap-body" id="menu-cap-body-5">
+                <div class="menu-cap-body-inner">
+                  <p>Strategi konten bulanan, social media management, copywriting, serta Meta &amp; TikTok Ads.</p>
+                  <button type="button" class="menu-cap-pick" data-pick-cap="digital-marketing">+ Masukkan ke Brief</button>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Compact Live Brief Summary Strip -->
+        <div class="dossier-mini" aria-live="polite" aria-label="Ringkasan brief langsung">
+          <div class="dossier-mini-head">
+            <span class="dossier-mini-tag">Ringkasan Brief</span>
+            <span class="dossier-mini-step" id="dossierStep">01 / 03</span>
+          </div>
+          <div class="dossier-mini-grid">
+            <div class="dossier-mini-cell">
+              <span class="dossier-mini-label">Brand</span>
+              <span class="dossier-mini-val is-placeholder" id="liveBrand">Belum diisi</span>
+            </div>
+            <div class="dossier-mini-cell">
+              <span class="dossier-mini-label">Layanan</span>
+              <span class="dossier-mini-val is-placeholder" id="liveCount">Belum dipilih</span>
+            </div>
+            <div class="dossier-mini-cell">
+              <span class="dossier-mini-label">Anggaran</span>
+              <span class="dossier-mini-val is-placeholder" id="liveBudget">Belum dipilih</span>
+            </div>
+            <div class="dossier-mini-cell">
+              <span class="dossier-mini-label">Mulai</span>
+              <span class="dossier-mini-val is-placeholder" id="liveTimeline">Belum dipilih</span>
             </div>
           </div>
-
-          <div class="dossier-row" id="liveDeliverablesRow" hidden>
-            <span class="dossier-label">Output Spesifik</span>
-            <div class="dossier-tags is-subtle" id="liveDeliverables"></div>
-          </div>
-
-          <div class="dossier-grid">
-            <div class="dossier-cell">
-              <span class="dossier-label">Anggaran</span>
-              <span class="dossier-value is-placeholder" id="liveBudget">Belum dipilih</span>
-            </div>
-            <div class="dossier-cell">
-              <span class="dossier-label">Mulai</span>
-              <span class="dossier-value is-placeholder" id="liveTimeline">Belum dipilih</span>
-            </div>
-          </div>
-
-          <div class="dossier-note" id="liveEstimate">
+          <div class="dossier-mini-note" id="liveEstimate">
             Estimasi alur kerja akan menyesuaikan pilihan layanan Anda.
           </div>
         </div>
@@ -96,7 +170,7 @@
         <div class="progress" id="progress">
           <ol class="stepper" aria-label="Tahapan pengisian brief">
             <li class="stepper-item is-current" data-stepper="1">
-              <button type="button" class="stepper-btn" data-goto="1"><span>01</span> Kapabilitas</button>
+              <button type="button" class="stepper-btn" data-goto="1"><span>01</span> Layanan</button>
             </li>
             <li class="stepper-item" data-stepper="2">
               <button type="button" class="stepper-btn" data-goto="2"><span>02</span> Rencana</button>
@@ -118,134 +192,163 @@
             <input type="text" id="company_site" name="company_site" tabindex="-1" autocomplete="off">
           </div>
 
-          <!-- STEP 1: Kapabilitas & Kebutuhan -->
+          <!-- STEP 1: Layanan & Kebutuhan -->
           <fieldset class="step is-active" data-step="1">
             <legend class="step-title">Apa yang bisa kami bantu wujudkan?</legend>
-            <p class="step-sub">Klik pilar layanan di bawah untuk melihat detail output yang kami kerjakan dan pilih yang sesuai kebutuhan Anda.</p>
+            <p class="step-sub">Pilih satu atau beberapa layanan di bawah, lalu centang detail output spesifik bila diperlukan.</p>
 
             <div class="field">
-              <span class="field-label" id="servicesLabel">Pilih Pilar &amp; Output Layanan <b aria-hidden="true">*</b></span>
+              <span class="field-label" id="servicesLabel">Pilih Layanan &amp; Detail Output <b aria-hidden="true">*</b></span>
               <div class="cap-list" role="group" aria-labelledby="servicesLabel" aria-describedby="err-services">
 
                 <!-- 01 -->
-                <div class="cap-card" data-cap="ai-creative">
+                <div class="cap-card" data-cap="video-editing">
                   <div class="cap-head">
                     <label class="cap-check">
-                      <input type="checkbox" name="services" value="AI Creativity & Produksi Visual">
+                      <input type="checkbox" name="services" value="Editing Video & Motion">
                       <span class="cap-box" aria-hidden="true"></span>
                       <span class="cap-index">01</span>
                       <span class="cap-copy">
-                        <strong class="cap-title">AI Creativity &amp; Produksi Visual</strong>
-                        <span class="cap-desc">Foto produk HD, AI UGC video, video komersial, motion graphics, dan visual katalog.</span>
+                        <strong class="cap-title">Editing Video &amp; Motion</strong>
+                        <span class="cap-desc">Video komersial, Reels &amp; TikTok, AI UGC video, motion graphics, hingga post-production.</span>
                       </span>
                     </label>
-                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-1" aria-label="Lihat detail output AI Creativity dan Produksi Visual">
-                      <span class="cap-count" data-count-for="ai-creative"></span>
+                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-1" aria-label="Lihat detail output Editing Video dan Motion">
+                      <span class="cap-count" data-count-for="video-editing"></span>
                       <span class="cap-plus" aria-hidden="true">+</span>
                     </button>
                   </div>
                   <div class="cap-panel" id="cap-panel-1">
                     <div class="cap-panel-inner">
-                      <p class="cap-what">Output yang bisa dipilih (opsional):</p>
+                      <p class="cap-what">Output spesifik (opsional):</p>
                       <div class="sub-chips">
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="ai-creative" value="Foto Produk & Lifestyle"><span>Foto Produk &amp; Lifestyle</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="ai-creative" value="AI Product Photography"><span>AI Product Photography</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="ai-creative" value="AI UGC Videos"><span>AI UGC Videos</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="ai-creative" value="Video Komersial & Campaign"><span>Video Komersial &amp; Campaign</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="ai-creative" value="Motion Graphics & Editing"><span>Motion Graphics &amp; Editing</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="video-editing" value="Editing Video Reels & TikTok"><span>Editing Video Reels &amp; TikTok</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="video-editing" value="Video Komersial & Campaign"><span>Video Komersial &amp; Campaign</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="video-editing" value="AI UGC Videos"><span>AI UGC Videos</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="video-editing" value="Motion Graphics & Bumper"><span>Motion Graphics &amp; Bumper</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="video-editing" value="Color Grading & Post-Production"><span>Color Grading &amp; Post-Production</span></label>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- 02 -->
-                <div class="cap-card" data-cap="digital-marketing">
+                <div class="cap-card" data-cap="graphic-branding">
                   <div class="cap-head">
                     <label class="cap-check">
-                      <input type="checkbox" name="services" value="Konten & Digital Marketing">
+                      <input type="checkbox" name="services" value="Desain Grafis & Branding">
                       <span class="cap-box" aria-hidden="true"></span>
                       <span class="cap-index">02</span>
                       <span class="cap-copy">
-                        <strong class="cap-title">Konten &amp; Digital Marketing</strong>
-                        <span class="cap-desc">Strategi konten, pengelolaan media sosial, Reels/TikTok, dan iklan Meta &amp; TikTok Ads.</span>
+                        <strong class="cap-title">Desain Grafis &amp; Branding</strong>
+                        <span class="cap-desc">Desain grafis promosi, feed media sosial, logo, brand identity, panduan brand, dan kemasan.</span>
                       </span>
                     </label>
-                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-2" aria-label="Lihat detail output Konten dan Digital Marketing">
-                      <span class="cap-count" data-count-for="digital-marketing"></span>
+                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-2" aria-label="Lihat detail output Desain Grafis dan Branding">
+                      <span class="cap-count" data-count-for="graphic-branding"></span>
                       <span class="cap-plus" aria-hidden="true">+</span>
                     </button>
                   </div>
                   <div class="cap-panel" id="cap-panel-2">
                     <div class="cap-panel-inner">
-                      <p class="cap-what">Output yang bisa dipilih (opsional):</p>
+                      <p class="cap-what">Output spesifik (opsional):</p>
                       <div class="sub-chips">
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Social Media Management"><span>Social Media Management</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Reels & TikTok Short-Form"><span>Reels &amp; TikTok Short-Form</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Content Strategy & Calendar"><span>Content Strategy &amp; Calendar</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Meta & TikTok Ads"><span>Meta &amp; TikTok Ads</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Performance Marketing"><span>Performance Marketing</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="graphic-branding" value="Desain Grafis & Feed Sosmed"><span>Desain Grafis &amp; Feed Sosmed</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="graphic-branding" value="Logo & Brand Identity"><span>Logo &amp; Brand Identity</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="graphic-branding" value="Brand Guidelines"><span>Brand Guidelines</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="graphic-branding" value="Desain Kemasan & Katalog"><span>Desain Kemasan &amp; Katalog</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="graphic-branding" value="Brand Strategy & Storytelling"><span>Brand Strategy &amp; Storytelling</span></label>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- 03 -->
-                <div class="cap-card" data-cap="visual-branding">
+                <div class="cap-card" data-cap="web-building">
                   <div class="cap-head">
                     <label class="cap-check">
-                      <input type="checkbox" name="services" value="Visual Branding & Strategy">
+                      <input type="checkbox" name="services" value="Building Website">
                       <span class="cap-box" aria-hidden="true"></span>
                       <span class="cap-index">03</span>
                       <span class="cap-copy">
-                        <strong class="cap-title">Visual Branding &amp; Strategy</strong>
-                        <span class="cap-desc">Sistem logo, identitas visual, brand guidelines, kemasan, dan storytelling brand.</span>
+                        <strong class="cap-title">Building Website</strong>
+                        <span class="cap-desc">Website portfolio, website perusahaan (company profile), landing page, katalog online, hingga siap publish.</span>
                       </span>
                     </label>
-                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-3" aria-label="Lihat detail output Visual Branding dan Strategy">
-                      <span class="cap-count" data-count-for="visual-branding"></span>
+                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-3" aria-label="Lihat detail output Building Website">
+                      <span class="cap-count" data-count-for="web-building"></span>
                       <span class="cap-plus" aria-hidden="true">+</span>
                     </button>
                   </div>
                   <div class="cap-panel" id="cap-panel-3">
                     <div class="cap-panel-inner">
-                      <p class="cap-what">Output yang bisa dipilih (opsional):</p>
+                      <p class="cap-what">Output spesifik (opsional):</p>
                       <div class="sub-chips">
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="visual-branding" value="Brand Strategy & Storytelling"><span>Brand Strategy &amp; Storytelling</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="visual-branding" value="Logo & Visual Identity"><span>Logo &amp; Visual Identity</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="visual-branding" value="Brand Guidelines"><span>Brand Guidelines</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="visual-branding" value="Visual Direction & Moodboard"><span>Visual Direction &amp; Moodboard</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="visual-branding" value="Desain Kemasan & Grafis"><span>Desain Kemasan &amp; Grafis</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-building" value="Website Portfolio"><span>Website Portfolio</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-building" value="Website Perusahaan (Company Profile)"><span>Website Perusahaan (Company Profile)</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-building" value="Landing Page Produk / Promo"><span>Landing Page Produk / Promo</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-building" value="Website Katalog / UMKM"><span>Website Katalog / UMKM</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-building" value="Setup Domain & Publish Online"><span>Setup Domain &amp; Publish Online</span></label>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <!-- 04 -->
-                <div class="cap-card" data-cap="web-development">
+                <div class="cap-card" data-cap="photo-ai">
                   <div class="cap-head">
                     <label class="cap-check">
-                      <input type="checkbox" name="services" value="Website Development">
+                      <input type="checkbox" name="services" value="Foto Produk & AI Visual">
                       <span class="cap-box" aria-hidden="true"></span>
                       <span class="cap-index">04</span>
                       <span class="cap-copy">
-                        <strong class="cap-title">Website Development</strong>
-                        <span class="cap-desc">Pembuatan website modern responsif untuk profil bisnis, katalog, atau landing page hingga siap publish.</span>
+                        <strong class="cap-title">Foto Produk &amp; AI Visual</strong>
+                        <span class="cap-desc">Foto produk HD, lifestyle, AI product photography, dan aset visual kampanye.</span>
                       </span>
                     </label>
-                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-4" aria-label="Lihat detail output Website Development">
-                      <span class="cap-count" data-count-for="web-development"></span>
+                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-4" aria-label="Lihat detail output Foto Produk dan AI Visual">
+                      <span class="cap-count" data-count-for="photo-ai"></span>
                       <span class="cap-plus" aria-hidden="true">+</span>
                     </button>
                   </div>
                   <div class="cap-panel" id="cap-panel-4">
                     <div class="cap-panel-inner">
-                      <p class="cap-what">Output yang bisa dipilih (opsional):</p>
+                      <p class="cap-what">Output spesifik (opsional):</p>
                       <div class="sub-chips">
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-development" value="Landing Page Produk / Promo"><span>Landing Page Produk / Promo</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-development" value="Website Company Profile"><span>Website Company Profile</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-development" value="Website Portofolio / Katalog"><span>Website Portofolio / Katalog</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-development" value="Desain UI/UX Responsif"><span>Desain UI/UX Responsif</span></label>
-                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="web-development" value="Setup Domain & Publish Online"><span>Setup Domain &amp; Publish Online</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="photo-ai" value="Foto Produk & Lifestyle"><span>Foto Produk &amp; Lifestyle</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="photo-ai" value="AI Product Photography"><span>AI Product Photography</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="photo-ai" value="Visual Katalog E-Commerce"><span>Visual Katalog E-Commerce</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="photo-ai" value="Generative Visuals & Aset Kampanye"><span>Generative Visuals &amp; Aset Kampanye</span></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 05 -->
+                <div class="cap-card" data-cap="digital-marketing">
+                  <div class="cap-head">
+                    <label class="cap-check">
+                      <input type="checkbox" name="services" value="Konten & Digital Marketing">
+                      <span class="cap-box" aria-hidden="true"></span>
+                      <span class="cap-index">05</span>
+                      <span class="cap-copy">
+                        <strong class="cap-title">Konten &amp; Digital Marketing</strong>
+                        <span class="cap-desc">Strategi konten bulanan, social media management, copywriting, serta Meta &amp; TikTok Ads.</span>
+                      </span>
+                    </label>
+                    <button type="button" class="cap-expand-btn" aria-expanded="false" aria-controls="cap-panel-5" aria-label="Lihat detail output Konten dan Digital Marketing">
+                      <span class="cap-count" data-count-for="digital-marketing"></span>
+                      <span class="cap-plus" aria-hidden="true">+</span>
+                    </button>
+                  </div>
+                  <div class="cap-panel" id="cap-panel-5">
+                    <div class="cap-panel-inner">
+                      <p class="cap-what">Output spesifik (opsional):</p>
+                      <div class="sub-chips">
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Social Media Management"><span>Social Media Management</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Content Strategy & Calendar"><span>Content Strategy &amp; Calendar</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Meta & TikTok Ads"><span>Meta &amp; TikTok Ads</span></label>
+                        <label class="sub-chip"><input type="checkbox" name="deliverables" data-parent="digital-marketing" value="Performance Marketing & Funnel"><span>Performance Marketing &amp; Funnel</span></label>
                       </div>
                     </div>
                   </div>
@@ -258,13 +361,13 @@
             <div class="field">
               <label class="field-label" for="projectSummary">Ceritakan singkat proyeknya <b aria-hidden="true">*</b></label>
               <div class="quick-prompts" aria-label="Template cepat untuk membantu mengisi ringkasan">
-                <button type="button" class="prompt-btn" data-prompt="Kami akan meluncurkan produk baru dan membutuhkan aset foto produk serta video singkat untuk media sosial dan iklan.">Peluncuran produk baru</button>
-                <button type="button" class="prompt-btn" data-prompt="Kami ingin merapikan identitas visual brand (logo, panduan warna, dan arah konten) agar lebih konsisten.">Rebranding visual</button>
-                <button type="button" class="prompt-btn" data-prompt="Kami membutuhkan website profil bisnis / landing page yang rapi di mobile dan desktop hingga siap online dengan domain sendiri.">Buat website siap live</button>
-                <button type="button" class="prompt-btn" data-prompt="Kami mencari tim kreatif untuk produksi konten Reels/TikTok dan pengelolaan media sosial secara rutin setiap bulan.">Konten rutin bulanan</button>
+                <button type="button" class="prompt-btn" data-prompt="Kami ingin membuat website portfolio / website perusahaan yang rapi di mobile dan desktop hingga siap publish dengan domain sendiri.">Buat website portfolio / perusahaan</button>
+                <button type="button" class="prompt-btn" data-prompt="Kami membutuhkan jasa editing video Reels/TikTok atau video komersial yang menarik perhatian audiens untuk kampanye brand kami.">Editing video &amp; Reels</button>
+                <button type="button" class="prompt-btn" data-prompt="Kami membutuhkan desain grafis promosi dan perapihan identitas visual (logo, panduan warna, dan gaya konten) agar brand lebih konsisten.">Desain grafis &amp; branding</button>
+                <button type="button" class="prompt-btn" data-prompt="Kami akan meluncurkan produk baru dan membutuhkan foto produk serta materi iklan untuk media sosial.">Foto produk &amp; iklan</button>
               </div>
               <textarea id="projectSummary" name="projectSummary" rows="4" maxlength="800"
-                placeholder="Ceritakan target, produk, atau tantangan yang ingin diselesaikan."
+                placeholder="Ceritakan target, produk, atau jenis website/konten yang ingin dibuat."
                 aria-describedby="err-projectSummary hint-projectSummary" required></textarea>
               <div class="field-foot">
                 <p class="field-error" id="err-projectSummary" role="alert"></p>
@@ -282,7 +385,7 @@
               <div class="field">
                 <label class="field-label" for="brandName">Nama brand / bisnis <b aria-hidden="true">*</b></label>
                 <input type="text" id="brandName" name="brandName" maxlength="120" autocomplete="organization"
-                  placeholder="Nama brand Anda" aria-describedby="err-brandName" required>
+                  placeholder="Nama brand atau perusahaan Anda" aria-describedby="err-brandName" required>
                 <p class="field-error" id="err-brandName" role="alert"></p>
               </div>
               <div class="field">
@@ -296,8 +399,8 @@
               <span class="field-label" id="budgetLabel">Perkiraan anggaran <b aria-hidden="true">*</b></span>
               <div class="option-grid" role="radiogroup" aria-labelledby="budgetLabel" aria-describedby="err-budget">
                 <label class="option-card"><input type="radio" name="budget" value="< Rp5 juta"><span><strong>&lt; Rp5 juta</strong><small>Kebutuhan satuan / cepat</small></span></label>
-                <label class="option-card"><input type="radio" name="budget" value="Rp5-15 juta"><span><strong>Rp5 - 15 juta</strong><small>Paket konten / landing page</small></span></label>
-                <label class="option-card"><input type="radio" name="budget" value="Rp15-50 juta"><span><strong>Rp15 - 50 juta</strong><small>Kampanye / branding penuh</small></span></label>
+                <label class="option-card"><input type="radio" name="budget" value="Rp5-15 juta"><span><strong>Rp5 - 15 juta</strong><small>Paket konten / website landing</small></span></label>
+                <label class="option-card"><input type="radio" name="budget" value="Rp15-50 juta"><span><strong>Rp15 - 50 juta</strong><small>Kampanye / website perusahaan / branding</small></span></label>
                 <label class="option-card"><input type="radio" name="budget" value="> Rp50 juta"><span><strong>&gt; Rp50 juta</strong><small>Produksi skala besar / retainer</small></span></label>
                 <label class="option-card is-wide"><input type="radio" name="budget" value="Belum tahu / ingin konsultasi"><span><strong>Belum tahu, ingin konsultasi</strong><small>Kami bantu rekomendasikan ruang lingkup yang pas</small></span></label>
               </div>
@@ -391,6 +494,6 @@
     <p><a href="https://naracreative.site/">naracreative.site</a></p>
   </footer>
 
-  <script src="app.js?v=6.1"></script>
+  <script src="app.js?v=7.0"></script>
 </body>
 </html>

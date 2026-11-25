@@ -7,13 +7,13 @@ charcoal `#29271e`, serif Georgia, aksen bronze `#8b6842`).
 ## Isi form & interaksi
 | Langkah | Isi |
 |---|---|
-| 1. Kapabilitas | 4 pilar utama dari portfolio (AI Creativity & Produksi Visual, Konten & Digital Marketing, Visual Branding & Strategy, Website Development) dengan accordion output spesifik yang dapat dicentang + template cepat pengisian ringkasan proyek |
+| 1. Layanan | Menu interaktif *"Apa yang Bisa Kami Kerjakan"* di sisi pengantar (01 Editing Video & Motion, 02 Desain Grafis & Branding, 03 Building Website: portfolio/company profile/landing page, 04 Foto Produk & AI Visual, 05 Konten & Digital Marketing) sinkron dua arah dengan accordion output spesifik di form + template cepat ringkasan |
 | 2. Rencana | Nama brand, IG/website (opsional), pilihan kartu anggaran, waktu mulai |
 | 3. Kontak | Nama, WhatsApp, email |
 | 4. Rekap | Cek ulang semua data + tombol "Ubah" per baris → Kirim |
 
-Panel **Live Brief Dossier** di sisi pengantar diperbarui secara real-time saat klien memilih pilar, output, brand, anggaran, atau jadwal, beserta estimasi pengerjaan yang mengacu pada FAQ di portfolio.
-Jawaban tersimpan otomatis di browser (`localStorage` key `nara_brief_v6`) saat pindah langkah atau reload.
+Ringkasan brief langsung di panel pengantar ikut terbarui saat klien memilih layanan, brand, anggaran, atau jadwal, beserta estimasi pengerjaan yang mengacu pada FAQ di portfolio.
+Jawaban tersimpan otomatis di browser (`localStorage` key `nara_brief_v7`) saat pindah langkah atau reload.
 Layar sukses **hanya** muncul jika Apps Script membalas `success: true`.
 
 ## File
