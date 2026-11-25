@@ -39,6 +39,7 @@ const HEADERS = [
   'Nama Brand',
   'Instagram / Website',
   'Layanan',
+  'Detail Output',
   'Ringkasan Proyek',
   'Anggaran',
   'Mulai',
@@ -47,7 +48,7 @@ const HEADERS = [
 
 const LIMITS = {
   briefId: 40, fullName: 100, whatsapp: 20, email: 120, brandName: 120,
-  brandLink: 200, services: 300, projectSummary: 800, budget: 60, timeline: 60, source: 80
+  brandLink: 200, services: 300, deliverables: 500, projectSummary: 800, budget: 60, timeline: 60, source: 80
 };
 
 function doPost(e) {
@@ -109,6 +110,7 @@ function doPost(e) {
         safe_(d.brandName),
         safe_(d.brandLink),
         safe_(d.services),
+        safe_(d.deliverables),
         safe_(d.projectSummary),
         safe_(d.budget),
         safe_(d.timeline),
@@ -129,13 +131,14 @@ function doPost(e) {
             'Nama     : ' + d.fullName,
             'WhatsApp : ' + d.whatsapp,
             'Email    : ' + d.email,
-            'Brand    : ' + d.brandName + (d.brandLink ? ' — ' + d.brandLink : ''),
+            'Brand    : ' + d.brandName + (d.brandLink ? ' - ' + d.brandLink : ''),
             'Layanan  : ' + d.services,
+            d.deliverables ? 'Output   : ' + d.deliverables : null,
             'Anggaran : ' + d.budget,
             'Mulai    : ' + d.timeline,
             '',
             d.projectSummary
-          ].join('\n')
+          ].filter(Boolean).join('\n')
         });
       } catch (mailErr) {
         Logger.log('Email gagal: ' + mailErr); // brief tetap tersimpan
@@ -164,7 +167,7 @@ function getSheet_() {
       .setBackground('#282821')
       .setFontColor('#F5F1E9');
     sheet.setFrozenRows(1);
-    sheet.setColumnWidth(10, 380);
+    sheet.setColumnWidth(11, 380);
   }
   return sheet;
 }

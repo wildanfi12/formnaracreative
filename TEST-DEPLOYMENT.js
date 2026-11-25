@@ -12,8 +12,9 @@ if (!url || !/\/exec$/.test(url)) {
 const payload = {
   briefId: 'NARA-TEST-' + Date.now().toString(36).toUpperCase(),
   timestamp: new Date().toISOString(),
-  services: 'Konten & Media Sosial',
-  projectSummary: 'UJI SISTEM — boleh dihapus. Tes koneksi form ke spreadsheet.',
+  services: 'Konten & Digital Marketing',
+  deliverables: 'Reels & TikTok Short-Form, Content Strategy & Calendar',
+  projectSummary: 'UJI SISTEM (boleh dihapus). Tes koneksi form ke spreadsheet.',
   brandName: 'TEST NARA',
   brandLink: '',
   budget: 'Belum tahu / ingin konsultasi',
