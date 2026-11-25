@@ -156,7 +156,7 @@ function updateDossier() {
 
   const pillarsEl = document.getElementById('livePillars');
   if (pillarsEl) {
-    renderTagList(pillarsEl, d.services, 'Pilih layanan di sebelah kanan');
+    renderTagList(pillarsEl, d.services, 'Belum ada layanan dipilih');
   }
 
   const delivRow = document.getElementById('liveDeliverablesRow');

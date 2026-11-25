@@ -14,6 +14,7 @@
   --line: #dcd6cb;
   --line-strong: #c9c2b4;
   --accent: #8b6842;
+  --accent-deep: #6f5030;
   --accent-soft: rgba(139, 104, 66, .12);
   --dark: #29271e;
   --dark-2: #1e1c16;
@@ -361,8 +362,8 @@ button:disabled { cursor: not-allowed; }
 }
 .stepper-btn:hover { color: var(--ink); }
 .stepper-item.is-current .stepper-btn { color: var(--ink); font-weight: 700; }
-.stepper-item.is-current .stepper-btn span { color: var(--accent); opacity: 1; }
-.stepper-item.is-done .stepper-btn { color: var(--accent); }
+.stepper-item.is-current .stepper-btn span { color: var(--accent-deep); opacity: 1; }
+.stepper-item.is-done .stepper-btn { color: var(--accent-deep); }
 
 .progress-track { height: 2px; background: var(--line); overflow: hidden; }
 .progress-bar {
@@ -391,6 +392,7 @@ button:disabled { cursor: not-allowed; }
   line-height: 1.12;
   margin: 0 0 8px;
 }
+.step-title:focus { outline: none; }
 .step-sub { margin: 0 0 30px; color: var(--muted); font-size: 14.5px; }
 
 .field { margin-bottom: 28px; min-width: 0; }
@@ -404,7 +406,7 @@ button:disabled { cursor: not-allowed; }
   text-transform: uppercase;
   color: var(--muted);
 }
-.field-label b { color: var(--accent); font-weight: 400; }
+.field-label b { color: var(--accent-deep); font-weight: 400; }
 .opt { text-transform: none; letter-spacing: 0; color: var(--muted); font-size: 12px; margin-left: 4px; }
 
 /* ---------- Interactive Capability Cards ---------- */
@@ -479,7 +481,7 @@ button:disabled { cursor: not-allowed; }
 .cap-index {
   font-family: var(--serif);
   font-size: 13px;
-  color: var(--accent);
+  color: var(--accent-deep);
   margin-top: 2px;
   flex-shrink: 0;
 }
@@ -525,7 +527,7 @@ button:disabled { cursor: not-allowed; }
 .cap-count {
   font-size: 11px;
   letter-spacing: .5px;
-  color: var(--accent);
+  color: var(--accent-deep);
   white-space: nowrap;
 }
 .cap-count:empty { display: none; }
@@ -594,8 +596,8 @@ button:disabled { cursor: not-allowed; }
 }
 .sub-chip:hover span { border-color: var(--ink); }
 .sub-chip input:checked + span {
-  background: var(--accent);
-  border-color: var(--accent);
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
   color: var(--cream);
 }
 .sub-chip input:focus-visible + span {
@@ -769,10 +771,10 @@ input:focus, textarea:focus {
   font-size: 11px;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-deep);
   border-bottom: 1px solid transparent;
 }
-.review-edit:hover { border-bottom-color: var(--accent); }
+.review-edit:hover { border-bottom-color: var(--accent-deep); }
 .form-note { font-size: 12.5px; color: var(--muted); margin: 0; }
 
 /* ---------- Status ---------- */
@@ -787,7 +789,7 @@ input:focus, textarea:focus {
 .status.is-error { border-left-color: var(--error); }
 .status p { margin: 0 0 10px; }
 .status p:last-child { margin-bottom: 0; }
-.status a { color: var(--accent); }
+.status a { color: var(--accent-deep); }
 
 /* ---------- Navigation Buttons ---------- */
 .form-nav {
